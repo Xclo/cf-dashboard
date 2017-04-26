@@ -1,53 +1,39 @@
 import React from 'react'
 import Tile from './Tile'
 import {TileLayout} from 'pui-react-tile-layout'
+import axios from 'axios';
 
-const apps = [
-  {
-    name: 'Google',
-    url: 'https://google.com',
-    guid: 1
-  },
-  {
-    name: 'Yahoo',
-    url: 'https://yahoo.com',
-    guid: 2
-  },
-  {
-    name: 'Microsoft',
-    url: 'https://microsoft.com',
-    guid: 3
-  },
-  {
-    name: 'Github',
-    url: 'https://github.com',
-    guid: 4
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com',
-    guid: 5
-  },
-  {
-    name: 'Facebook',
-    url: 'https://facebook.com',
-    guid: 6
+class AppList extends Component {
+  componentWillMount() {
+    this.props.fetchApps();
+
   }
-]
 
-
-const AppList = () => {
-  return (
-    <div>
-      <h2>App List</h2>
-      <TileLayout columns={{xs: 1, sm: 2, md: 3}}>
-        {apps.map((app) => (
+  renderApp(app) {
+    return (
+      <div className="card card-block">
           <Tile key={app.guid} app={app}/>
-        ))}
-      </TileLayout>
-    </div>
-  )
+      </div>
+    );
+  }
 
+  render() {
+    const { appList } = this.props.appList;
+    return (
+      <div>
+        <h2>App List</h2>
+        <TileLayout columns={{xs: 1, sm: 2, md: 3}}>
+          {appList.map(this.renderApp)}
+        </TileLayout>
+    </div>
+    )
+  }
 }
 
-export default AppList
+
+
+function mapStateToProps(state) {
+  return {appList: state.appList};
+}
+
+export default connect(mapStateToProps,actions)(AppList);

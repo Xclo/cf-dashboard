@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
 import App from './components/App';
 import reducers from './reducers';
-import reduxThunk from 'redux-thunk';
-
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers);
+import store from "./middleware/store"
 
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -28,8 +24,8 @@ if (token) {
   store.dispatch({ type: AUTH_USER });
 }
 
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+const app = document.getElementById('app')
+
+ReactDOM.render(<Provider store={store}>
     <App/>
-  </Provider>
-  , document.querySelector('.container'));
+</Provider>, app);
