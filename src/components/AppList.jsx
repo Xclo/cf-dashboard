@@ -13,9 +13,7 @@ class AppList extends Component {
 
   renderApp(app) {
     return (
-      <div className="card card-block">
-          <Tile key={app.guid} app={app}/>
-      </div>
+      <Tile key={app.guid} app={app}/>
     );
   }
 
