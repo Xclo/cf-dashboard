@@ -8,7 +8,7 @@ import Example from './Example'
 
 const App = () => (
   <Router>
-    <div>
+    <div className="container">
       <Navigation/>
       <Route exact path="/" component={Main}/>
       <Route path="/example" component={Example}/>

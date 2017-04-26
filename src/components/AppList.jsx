@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Tile from './Tile'
 import {TileLayout} from 'pui-react-tile-layout'
 import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class AppList extends Component {
   componentWillMount() {
@@ -18,7 +20,7 @@ class AppList extends Component {
   }
 
   render() {
-    const { appList } = this.props.appList;
+    const { appList } = this.props;
     return (
       <div>
         <h2>App List</h2>
@@ -33,7 +35,7 @@ class AppList extends Component {
 
 
 function mapStateToProps(state) {
-  return {appList: state.appList};
+  return { appList: state.apps.appList };
 }
 
-export default connect(mapStateToProps,actions)(AppList);
+export default connect(mapStateToProps, actions)(AppList);
