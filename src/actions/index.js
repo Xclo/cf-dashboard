@@ -12,3 +12,16 @@ export function fetchApps () {
       })
   }
 }
+
+export function fetchFoundations () {
+
+  return function(dispatch) {
+    axios.get('http://localhost:5000/api/stub/foundations')
+      .then((response) => {
+        dispatch({type: "FETCH_FOUNDATIONS_FULFILLED", payload: response.data})
+      })
+      .catch((err) => {
+        dispatch({type: "FETCH_FOUNDATIONS_REJECTED", payload: err})
+      })
+  }
+}
