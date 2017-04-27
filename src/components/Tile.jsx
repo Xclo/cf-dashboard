@@ -3,9 +3,6 @@ import {TileLayoutItem} from 'pui-react-tile-layout'
 import {ClickableAltPanel} from 'pui-react-panels'
 import {Link} from 'react-router-dom'
 import {Row, Col} from 'pui-react-grids';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
-
 
 class Tile extends Component {
   render() {
