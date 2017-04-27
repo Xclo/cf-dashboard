@@ -12,3 +12,16 @@ export function fetchApps () {
       })
   }
 }
+
+export function fetchAppDetail () {
+
+  return function(dispatch) {
+    axios.get('http://localhost:5000/api/stub/app/1')
+      .then((response) => {
+        dispatch({type: "FETCH_APP_DETAILS_FULFILLED", payload: response.data})
+      })
+      .catch((err) => {
+        dispatch({type: "FETCH_APP_DETAILS_REJECTED", payload: err})
+      })
+  }
+}
