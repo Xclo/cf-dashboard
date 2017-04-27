@@ -8,7 +8,6 @@ import * as actions from '../actions';
 class AppList extends Component {
   componentWillMount() {
     this.props.fetchApps();
-
   }
 
   renderApp(app) {
@@ -29,8 +28,6 @@ class AppList extends Component {
     )
   }
 }
-
-
 
 function mapStateToProps(state) {
   return { appList: state.apps.appList };

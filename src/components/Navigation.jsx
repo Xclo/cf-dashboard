@@ -6,7 +6,7 @@ const Navigation = ({ match }) => (
   <Row>
     <ul>
       <Link to="/">Home</Link>
-      <Link to="/example">Example</Link>
+      <Link to="/apps">Apps</Link>
     </ul>
   </Row>
 )

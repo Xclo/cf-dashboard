@@ -1,23 +1,23 @@
 export default function reducer(state={
-    appDetail: [],
+    app: undefined,
     fetching: false,
     fetched: false,
     error: null,
   }, action) {
 
     switch (action.type) {
-      case "FETCH_APP_DETAIL": {
+      case "FETCH_APP_DETAILS": {
         return {...state, fetching: true}
       }
-      case "FETCH_APP_DETAIL_REJECTED": {
+      case "FETCH_APP_DETAILS_REJECTED": {
         return {...state, fetching: false, error: action.payload}
       }
-      case "FETCH_APP_DETAIL_FULFILLED": {
+      case "FETCH_APP_DETAILS_FULFILLED": {
         return {
           ...state,
           fetching: false,
           fetched: true,
-          appDetail: action.payload.appDetail,
+          app: action.payload,
         }
       }
     }

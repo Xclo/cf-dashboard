@@ -14,9 +14,7 @@ class Tile extends Component {
       <div className="card card-block">
         <TileLayoutItem className="bg-neutral-10">
           <ClickableAltPanel>
-            <Link
-            to={"/app/" + app.guid}
-            key={app.guid}>
+            <Link to={"/apps/" + app.guid} key={app.guid}>
             <h2>{app.name}</h2>
             {app.url}
             </Link>

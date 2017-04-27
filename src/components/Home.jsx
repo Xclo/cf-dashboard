@@ -4,7 +4,7 @@ import {Row} from 'pui-react-grids';
 
 const Home = ({ match }) => (
   <Row>
-    <AppList/>
+    <h2>Home</h2>
   </Row>
 )
 
