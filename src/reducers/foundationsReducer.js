@@ -23,16 +23,26 @@ export default function reducer(state = {
         return {...state, fetching: false, error: action.payload}
       }
       case FETCH_FOUNDATIONS_FULFILLED: {
+        var foundations = action.payload;
+        foundations.forEach((foundation) => {
+          let auth = localStorage.getItem(foundation.api)
+          if (auth) {
+            foundation.auth = auth;
+          }
+        })
+
         return {
           ...state,
           fetching: false,
           fetched: true,
-          all: _.mapKeys(action.payload, 'api')
+          all: _.mapKeys(foundations, 'api')
         }
       }
       case LOGIN_FOUNDATION: {
-        var foundations = {...state.all}
-        foundations[action.payload.api].auth = _.omit(action.payload, 'api')
+        let foundations = {...state.all}
+        let auth = _.omit(action.payload, 'api');
+        foundations[action.payload.api].auth = auth
+        localStorage.setItem(action.payload.api, auth);
         return {
           ...state,
           all: foundations
@@ -41,7 +51,7 @@ export default function reducer(state = {
       case LOGOUT_FOUNDATION: {
         var foundations = {...state.all}
         foundations[action.payload.api].auth = undefined
-
+        localStorage.removeItem(action.payload.api);
         return {
           ...state,
           all: foundations

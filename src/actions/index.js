@@ -46,9 +46,10 @@ export function fetchAppDetail () {
   }
 }
 
-export function foundationLogin() {
+export function foundationLogin(foundation) {
+  console.log(foundation);
   const payload = {
-    "api": "https://api.run.pcf.cloud",
+    "api": foundation.api,
     "type": "bearer",
     "token": "abcd123"
   }
@@ -57,9 +58,9 @@ export function foundationLogin() {
   }
 }
 
-export function foundationLogout() {
+export function foundationLogout(foundation) {
   const payload = {
-    "api": "https://api.run.pcf.cloud"
+    "api": foundation.api
   }
   return function(dispatch) {
     dispatch({type: LOGOUT_FOUNDATION, payload: payload})
