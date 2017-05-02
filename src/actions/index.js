@@ -8,7 +8,8 @@ import {
   FETCH_APP_DETAILS_FULFILLED,
   FETCH_APP_DETAILS_REJECTED,
   LOGIN_FOUNDATION,
-  LOGOUT_FOUNDATION
+  LOGOUT_FOUNDATION,
+  FOUNDATION_LOGIN_MODAL_OPEN_STATE
 } from './types'
 
 export function fetchApps () {
@@ -46,7 +47,16 @@ export function fetchAppDetail () {
   }
 }
 
-export function foundationLogin(foundation) {
+export function foundationLogin(auth) {
+  axios.get('http://localhost:5000/auth/login', {username: auth.username, password: auth.password, api: auth.api})
+    .then((response) => {
+
+      dispatch({type: FETCH_FOUNDATIONS_FULFILLED, payload: response.data})
+      closeFoundationLoginModal(auth)
+    })
+    .catch((err) => {
+      dispatch({type: FETCH_FOUNDATIONS_REJECTED, payload: err})
+    })
   console.log(foundation);
   const payload = {
     "api": foundation.api,
@@ -64,5 +74,25 @@ export function foundationLogout(foundation) {
   }
   return function(dispatch) {
     dispatch({type: LOGOUT_FOUNDATION, payload: payload})
+  }
+}
+
+export function openFoundationLoginModal(foundation) {
+  const payload = {
+    "open": true,
+    "api": foundation.api
+  }
+  return function(dispatch) {
+    dispatch({type: FOUNDATION_LOGIN_MODAL_OPEN_STATE, payload: payload})
+  }
+}
+
+export function closeFoundationLoginModal(foundation) {
+  const payload = {
+    "open": false,
+    "api": foundation.api
+  }
+  return function(dispatch) {
+    dispatch({type: FOUNDATION_LOGIN_MODAL_OPEN_STATE, payload: payload})
   }
 }

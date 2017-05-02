@@ -5,7 +5,8 @@ import {
   FETCH_FOUNDATIONS_REJECTED,
   FETCH_FOUNDATIONS_FULFILLED,
   LOGIN_FOUNDATION,
-  LOGOUT_FOUNDATION
+  LOGOUT_FOUNDATION,
+  FOUNDATION_LOGIN_MODAL_OPEN_STATE
 } from '../actions/types'
 
 export default function reducer(state = {
@@ -52,6 +53,16 @@ export default function reducer(state = {
         var foundations = {...state.all}
         foundations[action.payload.api].auth = undefined
         localStorage.removeItem(action.payload.api);
+        return {
+          ...state,
+          all: foundations
+        }
+      }
+      case FOUNDATION_LOGIN_MODAL_OPEN_STATE: {
+        var foundations = {...state.all}
+        console.log('foundations before', foundations)
+        foundations[action.payload.api].loginModalOpen = action.payload.open
+        console.log('foundations after', foundations)
         return {
           ...state,
           all: foundations

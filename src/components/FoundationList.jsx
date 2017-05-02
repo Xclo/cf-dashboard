@@ -17,7 +17,7 @@ class FoundationList extends Component {
   renderFoundations() {
     return _.map(this.props.foundations, foundation => {
       return (
-        <Foundation key={foundation.name} foundation={foundation} login={this.props.foundationLogin} logout={this.props.foundationLogout}/>
+        <Foundation key={foundation.name} foundation={foundation} login={this.props.foundationLogin} logout={this.props.foundationLogout} openModal={this.props.openFoundationLoginModal} closeModal={this.props.closeFoundationLoginModal}/>
       )
     })
   }
