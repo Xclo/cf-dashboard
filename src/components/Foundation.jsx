@@ -19,11 +19,12 @@ class Foundation extends Component {
   }
 
   handleLogout(e) {
-    e.preventDefault()
-    this.props.logout(this.props.foundation)
+    e.preventDefault();
+    this.props.logout(this.props.foundation);
   }
 
   openModal(e) {
+    e.preventDefault();
     this.props.openModal(this.props.foundation);
   }
 

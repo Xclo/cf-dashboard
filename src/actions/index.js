@@ -41,7 +41,7 @@ export function fetchApps () {
 
 export function fetchFoundations () {
   return function(dispatch) {
-    axios.get('http://localhost:5000/api/stub/foundations')
+    axios.get('http://localhost:5000/api/foundations')
       .then((response) => {
         dispatch({type: FETCH_FOUNDATIONS_FULFILLED, payload: response.data})
       })
