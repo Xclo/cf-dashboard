@@ -8,3 +8,8 @@ body {
 .container {
   width: 100%;
 }
+
+.foundationCheckBoxes input[type='checkbox'] {
+  margin-left: 0;
+  margin-right: .5rem;
+}

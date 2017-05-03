@@ -13,7 +13,7 @@ class AppList extends Component {
     super(props)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, foundation } = this.props
     this.props.fetchApps();
     this.state = {
@@ -24,10 +24,10 @@ class AppList extends Component {
   }
 
 
-  handleChange(foundation) {
-    this.props.dispatch(selectAppList(foundation))
-    this.props.dispatch(fetchAppsIfNeeded(foundation))
-  }
+  // handleChange(foundation) {
+  //   this.props.dispatch(selectAppList(foundation))
+  //   this.props.dispatch(fetchAppsIfNeeded(foundation))
+  // }
 
   renderApp(app) {
     return (
@@ -35,26 +35,26 @@ class AppList extends Component {
     );
   }
 
-  fruitsChanged(newFruits) {
-    this.setState({
-      fruits: newFruits
-    })
-  }
+  // fruitsChanged(newFruits) {
+  //   this.setState({
+  //     fruits: newFruits
+  //   })
+  // }
 
   render() {
-    const filterRegex = new RegExp(this.state.filter, "i");
+    // const filterRegex = new RegExp(this.state.filter, "i");
     const appList = this.props.appList;
-    const foundation  = this.props.foundation;
+    // const foundation  = this.props.foundation;
 
     // const appList = this.state.appList.map(app => app.match(filterRegex) && <li key={app}>{app}</li>);
     return (
       <div>
         <h2>App List</h2>
-        <div>
+        {/* <div>
           <Picker value={foundation}
           onChange={this.handleChange}
           options={[ 'foundation-1', 'foundation-2' ]} />
-        </div>
+        </div> */}
         {/* <Input search placeholder="Filter by..." onChange={event => this.setState({ filter: event.target.value })}/> */}
         <div className="card-columns">
           {appList.map(this.renderApp)}

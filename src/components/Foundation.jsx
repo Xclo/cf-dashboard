@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import FoundationLoginModal from './FoundationLoginModal'
+import { Label, Form, FormGroup, Input} from 'reactstrap';
+
 
 class Foundation extends Component {
   constructor(props) {
@@ -8,6 +10,7 @@ class Foundation extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.toggleFoundation = this.toggleFoundation.bind(this);
   }
   handleLogin(values) {
     let auth = {
@@ -32,6 +35,10 @@ class Foundation extends Component {
     this.props.closeModal(this.props.foundation);
   }
 
+  toggleFoundation() {
+    this.props.toggleFoundation(this.props.foundation.api);
+  }
+
   authLinks() {
     if (this.props.foundation.auth != undefined) {
       return (
@@ -45,10 +52,19 @@ class Foundation extends Component {
   }
 
   render() {
+    const {foundation} = this.props;
     return(
       <div>
-        {this.props.foundation.name} {this.authLinks()}
-        <FoundationLoginModal foundation={this.props.foundation} onSubmit={this.handleLogin} closeModal={this.closeModal} isOpen={this.props.foundation.loginModalOpen}/>
+        <Form className="foundationCheckBoxes">
+          <FormGroup check>
+            <Label>
+              <Input type="checkbox" checked={foundation.selected} onChange={this.toggleFoundation}/>
+              {foundation.name}
+            </Label>
+             {this.authLinks()}
+          </FormGroup>
+        </Form>
+        <FoundationLoginModal foundation={foundation} onSubmit={this.handleLogin} closeModal={this.closeModal} isOpen={foundation.loginModalOpen}/>
       </div>
     )
   }

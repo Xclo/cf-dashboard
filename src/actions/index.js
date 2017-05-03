@@ -12,7 +12,8 @@ import {
   LOGIN_FOUNDATION_REJECTED,
   LOGOUT_FOUNDATION,
   FOUNDATION_LOGIN_MODAL_OPEN_STATE,
-  SELECT_APPLIST
+  SELECT_APPLIST,
+  TOGGLE_FOUNDATION
 } from './types'
 
 
@@ -50,6 +51,13 @@ export function fetchFoundations () {
       })
   }
 }
+
+export function toggleFoundation (api) {
+  return function(dispatch) {
+    dispatch({type: TOGGLE_FOUNDATION, payload: api});
+  }
+}
+
 export function fetchAppDetail () {
   return function(dispatch) {
     axios.get('http://localhost:5000/api/stub/app/1')
