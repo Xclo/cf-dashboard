@@ -11,9 +11,22 @@ import {
   LOGIN_FOUNDATION,
   LOGIN_FOUNDATION_REJECTED,
   LOGOUT_FOUNDATION,
-  FOUNDATION_LOGIN_MODAL_OPEN_STATE
+  FOUNDATION_LOGIN_MODAL_OPEN_STATE,
+  SELECT_APPLIST
 } from './types'
 
+
+export function selectAppList (foundation) {
+  return {
+    type: SELECT_APPLIST,
+    foundation
+  }
+}
+
+
+export function fetchAppsIfNeeded(foundation) {
+  return dispatch(fetchApps(subreddit));
+}
 export function fetchApps () {
   return function(dispatch) {
     axios.get('http://localhost:5000/api/stub/apps')
