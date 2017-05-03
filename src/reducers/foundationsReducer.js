@@ -28,7 +28,7 @@ export default function reducer(state = {
         foundations.forEach((foundation) => {
           let auth = localStorage.getItem(foundation.api)
           if (auth) {
-            foundation.auth = auth;
+            foundation.auth = JSON.parse(auth);
           }
         })
 
@@ -43,7 +43,8 @@ export default function reducer(state = {
         let foundations = {...state.all}
         let auth = _.omit(action.payload, 'api');
         foundations[action.payload.api].auth = auth
-        localStorage.setItem(action.payload.api, auth);
+        foundations[action.payload.api].loginModalOpen = false;
+        localStorage.setItem(action.payload.api, JSON.stringify(auth));
         return {
           ...state,
           all: foundations
@@ -60,9 +61,7 @@ export default function reducer(state = {
       }
       case FOUNDATION_LOGIN_MODAL_OPEN_STATE: {
         var foundations = {...state.all}
-        console.log('foundations before', foundations)
         foundations[action.payload.api].loginModalOpen = action.payload.open
-        console.log('foundations after', foundations)
         return {
           ...state,
           all: foundations
@@ -70,5 +69,5 @@ export default function reducer(state = {
       }
     }
 
-    return state
+    return state;
 }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {reset} from 'redux-form'
 
 import {
   FETCH_APPS_FULFILLED,
@@ -8,6 +9,7 @@ import {
   FETCH_APP_DETAILS_FULFILLED,
   FETCH_APP_DETAILS_REJECTED,
   LOGIN_FOUNDATION,
+  LOGIN_FOUNDATION_REJECTED,
   LOGOUT_FOUNDATION,
   FOUNDATION_LOGIN_MODAL_OPEN_STATE
 } from './types'
@@ -48,22 +50,28 @@ export function fetchAppDetail () {
 }
 
 export function foundationLogin(auth) {
-  axios.get('http://localhost:5000/auth/login', {username: auth.username, password: auth.password, api: auth.api})
-    .then((response) => {
-      dispatch({type: FETCH_FOUNDATIONS_FULFILLED, payload: response.data})
-      closeFoundationLoginModal(auth)
-    })
-    .catch((err) => {
-      dispatch({type: FETCH_FOUNDATIONS_REJECTED, payload: err})
-    })
-  // console.log(foundation);
-  const payload = {
-    "api": auth.api,
-    "type": "bearer",
-    "token": "abcd123"
-  }
   return function(dispatch) {
-    dispatch({type: LOGIN_FOUNDATION, payload: payload})
+    axios.post('http://localhost:5000/api/auth/login', {username: auth.username, password: auth.password, api: auth.api})
+      .then((response) => {
+        if (response.data.token_type && response.data.access_token && response.data.refresh_token) {
+          const payload = {
+            "api": auth.api,
+            "tokenType": response.data.token_type,
+            "accessToken": response.data.access_token,
+            "refreshToken": response.data.refresh_token,
+            "expiresIn": response.data.expires_in
+          }
+          dispatch({type: LOGIN_FOUNDATION, payload: payload})
+          closeFoundationLoginModal(auth)
+          dispatch(reset('foundationLogin'))
+        } else {
+            dispatch({type: LOGIN_FOUNDATION_REJECTED, payload: response.data})
+        }
+
+      })
+      .catch((err) => {
+        dispatch({type: LOGIN_FOUNDATION_REJECTED, payload: err})
+      })
   }
 }
 
