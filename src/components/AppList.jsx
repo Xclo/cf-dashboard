@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import Tile from './Tile'
-import {TileLayout} from 'pui-react-tile-layout'
+import AppCard from './AppCard'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -8,22 +7,29 @@ import * as actions from '../actions';
 class AppList extends Component {
   componentWillMount() {
     this.props.fetchApps();
+    this.state = {
+      filter: "",
+      appList: this.props.appList
+    };
   }
 
   renderApp(app) {
     return (
-      <Tile key={app.guid} app={app}/>
+      <AppCard key={app.guid} app={app}/>
     );
   }
 
   render() {
-    const { appList } = this.props;
+    const filterRegex = new RegExp(this.state.filter, "i");
+    const appList = this.props.appList;
+    // const appList = this.state.appList.map(app => app.match(filterRegex) && <li key={app}>{app}</li>);
     return (
       <div>
         <h2>App List</h2>
-        <TileLayout columns={2}>
+        {/* <Input search placeholder="Filter by..." onChange={event => this.setState({ filter: event.target.value })}/> */}
+        <div className="card-columns">
           {appList.map(this.renderApp)}
-        </TileLayout>
+        </div>
     </div>
     )
   }

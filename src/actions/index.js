@@ -50,16 +50,15 @@ export function fetchAppDetail () {
 export function foundationLogin(auth) {
   axios.get('http://localhost:5000/auth/login', {username: auth.username, password: auth.password, api: auth.api})
     .then((response) => {
-
       dispatch({type: FETCH_FOUNDATIONS_FULFILLED, payload: response.data})
       closeFoundationLoginModal(auth)
     })
     .catch((err) => {
       dispatch({type: FETCH_FOUNDATIONS_REJECTED, payload: err})
     })
-  console.log(foundation);
+  // console.log(foundation);
   const payload = {
-    "api": foundation.api,
+    "api": auth.api,
     "type": "bearer",
     "token": "abcd123"
   }

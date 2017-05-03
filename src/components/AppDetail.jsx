@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import {BreadcrumbList, ListItem} from 'pui-react-lists'
 import {Link} from 'react-router-dom'
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 
 class AppDetail extends Component {
@@ -24,9 +24,8 @@ class AppDetail extends Component {
 
   renderAppName(app) {
     if (app === undefined) return;
-
     return (
-      <ListItem className="current"><span>{app.name}</span></ListItem>
+      <BreadcrumbItem className="current"><span>{app.name}</span></BreadcrumbItem>
     )
   }
 
@@ -35,11 +34,11 @@ class AppDetail extends Component {
 
     return (
       <div>
-        <BreadcrumbList>
-          <ListItem><Link to="/">Home</Link></ListItem>
-          <ListItem><Link to="/apps">Apps</Link></ListItem>
+        <Breadcrumb>
+          <BreadcrumbItem><Link to="/">Home</Link></BreadcrumbItem>
+          <BreadcrumbItem><Link to="/apps">Apps</Link></BreadcrumbItem>
           {this.renderAppName(app)}
-        </BreadcrumbList>
+        </Breadcrumb>
         <h2>App Details</h2>
         {this.renderAppDetails(app)}
       </div>

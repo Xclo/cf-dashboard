@@ -25,7 +25,7 @@ class FoundationList extends Component {
   render() {
     return (
       <div>
-        <h2>Foundation List</h2>
+        <h4>Foundations</h4>
         {this.renderFoundations()}
     </div>
     )

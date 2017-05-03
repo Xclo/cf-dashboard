@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import FoundationLoginModal from './FoundationLoginModal'
 
 class Foundation extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Foundation extends Component {
   }
   handleLogin() {
     let auth = {
-      api: foundation.api,
+      api: this.props.foundation.api,
       username: ''
     }
     this.props.login(this.props.foundation)
@@ -45,25 +46,7 @@ class Foundation extends Component {
     return(
       <div>
         {this.props.foundation.name} {this.authLinks()}
-        {/* <BaseModal title='Login'
-                   className='optional-custom-class'
-                   show={this.props.foundation.loginModalOpen}
-                   onHide={() => this.closeModal()}>
-          <ModalBody>
-
-
-
-
-            API: {this.props.foundation.api}
-            <Input label="Email" id="email" placeholder="Email"/>
-            <Input label="Password" id="password" type="password" placeholder="Password"/>
-          </ModalBody>
-          <ModalFooter>
-            <DefaultButton onClick={() => this.handleLogin()}>
-              Login
-            </DefaultButton>
-          </ModalFooter>
-        </BaseModal> */}
+        <FoundationLoginModal foundation={this.props.foundation} login={this.handleLogin} closeModal={this.closeModal} isOpen={this.props.foundation.loginModalOpen}/>
       </div>
     )
   }

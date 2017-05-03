@@ -5,24 +5,24 @@ import Home from './Home'
 import AppList from './AppList'
 import AppDetail from './AppDetail'
 import Navigation from './Navigation'
-import {Row, Col} from 'pui-react-grids'
 import LeftNav from './LeftNav'
+import { Container, Row, Col } from 'reactstrap';
 
 const App = () => (
   <Router>
-    <div className="container">
+    <Container>
       <Navigation/>
       <Row>
-        <Col md={6}>
+        <Col md="3">
           <LeftNav/>
         </Col>
-        <Col md={18}>
+        <Col md="9">
           <Route exact path="/" component={Home}/>
           <Route exact path="/apps" component={AppList}/>
           <Route path="/apps/:id" component={AppDetail}/>
         </Col>
       </Row>
-    </div>
+    </Container>
   </Router>
 );
 
