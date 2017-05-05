@@ -1,19 +1,18 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import { Card, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 class AppCard extends Component {
   render() {
     const app = this.props.app;
     return (
       <div>
-        <Card>
+        <Card block inverse style={{ backgroundColor: '#333', borderColor: '#567' }}>
           <CardBlock>
             <CardTitle><Link to={"/apps/" + app.guid} key={app.guid}>{app.name}</Link></CardTitle>
-            {/* <CardSubtitle>Card subtitle</CardSubtitle>
-            <CardText></CardText> */}
           </CardBlock>
         </Card>
+
       </div>
     );
   }

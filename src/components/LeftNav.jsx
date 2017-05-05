@@ -1,14 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import FoundationList from './FoundationList'
+import Filters from './Filters'
 
-const Navigation = ({ match }) => (
+const LeftNav = ({ match }) => (
   <div>
-    <FoundationList/>
+    <Filters/>
   </div>
-  // <Row>
-  //
-  // </Row>
 )
 
-export default Navigation
+export default LeftNav

@@ -6,6 +6,8 @@ import AppList from './AppList'
 import AppDetail from './AppDetail'
 import Navigation from './Navigation'
 import LeftNav from './LeftNav'
+import RightPane from './RightPane'
+
 import { Container, Row, Col } from 'reactstrap';
 
 const App = () => (
@@ -16,10 +18,13 @@ const App = () => (
         <Col md="3">
           <LeftNav/>
         </Col>
-        <Col md="9">
+        <Col md="6">
           <Route exact path="/" component={Home}/>
           <Route exact path="/apps" component={AppList}/>
           <Route path="/apps/:id" component={AppDetail}/>
+        </Col>
+        <Col md="3">
+          <RightPane/>
         </Col>
       </Row>
     </Container>
