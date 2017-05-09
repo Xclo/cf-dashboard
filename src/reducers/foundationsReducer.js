@@ -69,6 +69,7 @@ export default function reducer(state = {
           all: foundations
         }
       }
+
       case TOGGLE_FOUNDATION: {
         let foundations = {...state.all}
         let foundation = foundations[action.payload];
@@ -79,6 +80,8 @@ export default function reducer(state = {
         }
       }
     }
+
+
 
     return state;
 }

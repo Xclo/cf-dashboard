@@ -13,7 +13,8 @@ import {
   LOGOUT_FOUNDATION,
   FOUNDATION_LOGIN_MODAL_OPEN_STATE,
   SELECT_APPLIST,
-  TOGGLE_FOUNDATION
+  TOGGLE_FOUNDATION,
+  SEARCH_FIELD_UPDATED
 } from './types'
 
 
@@ -122,5 +123,11 @@ export function closeFoundationLoginModal(foundation) {
   }
   return function(dispatch) {
     dispatch({type: FOUNDATION_LOGIN_MODAL_OPEN_STATE, payload: payload})
+  }
+}
+
+export function searchFieldUpdated(search) {
+  return function(dispatch) {
+    dispatch({type: SEARCH_FIELD_UPDATED, payload: search})
   }
 }

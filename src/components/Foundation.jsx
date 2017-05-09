@@ -35,10 +35,6 @@ class Foundation extends Component {
     this.props.closeModal(this.props.foundation);
   }
 
-  toggleFoundation() {
-    this.props.toggleFoundation(this.props.foundation.api);
-  }
-
   authLinks() {
     if (this.props.foundation.auth != undefined) {
       return (
@@ -55,15 +51,7 @@ class Foundation extends Component {
     const {foundation} = this.props;
     return(
       <div>
-        <Form className="foundationCheckBoxes">
-          <FormGroup check>
-            <Label>
-              <Input type="checkbox" checked={foundation.selected} onChange={this.toggleFoundation}/>
-              {foundation.name}
-            </Label>
-             {this.authLinks()}
-          </FormGroup>
-        </Form>
+        {foundation.name}{this.authLinks()}
         <FoundationLoginModal foundation={foundation} onSubmit={this.handleLogin} closeModal={this.closeModal} isOpen={foundation.loginModalOpen}/>
       </div>
     )
