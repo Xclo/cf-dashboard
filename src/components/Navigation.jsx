@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
-export default class Navigation extends React.Component {
+export default class Navigation extends Component {
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
-    this.setState({isOpen: false})
+    this.state = {
+      isOpen: false
+    }
   }
 
   toggle() {
     this.setState({
-    isOpen: !this.state.isOpen
-  });
+      isOpen: !this.state.isOpen
+    });
+  }
 
   render() {
     return (
