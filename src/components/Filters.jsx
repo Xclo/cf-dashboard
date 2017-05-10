@@ -6,6 +6,7 @@ import FilterFoundationList from './FilterFoundationList'
 import _ from 'lodash'
 import * as actions from '../actions'
 import { connect } from 'react-redux'
+import SearchBar from './SearchBar'
 
 class Filter extends Component {
   constructor(props) {
@@ -24,10 +25,7 @@ class Filter extends Component {
           <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Filters&w=318&h=90" alt="Filters" />
           <CardBlock>
             <FilterFoundationList/>
-              <InputGroup>
-                <InputGroupAddon>Search</InputGroupAddon>
-                <Input placeholder="..." onChange={this.handleSearch}/>
-              </InputGroup>
+              <SearchBar handleSearch={this.handleSearch}/>
           </CardBlock>
         </Card>
       </CardDeck>

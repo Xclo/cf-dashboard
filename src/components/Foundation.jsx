@@ -10,7 +10,6 @@ class Foundation extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.toggleFoundation = this.toggleFoundation.bind(this);
   }
   handleLogin(values) {
     let auth = {

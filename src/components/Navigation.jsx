@@ -4,18 +4,16 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 
 export default class Navigation extends React.Component {
   constructor(props) {
-  super(props);
+    super(props);
 
-  this.toggle = this.toggle.bind(this);
-  this.state = {
-    isOpen: false
-  };
+    this.toggle = this.toggle.bind(this);
+    this.setState({isOpen: false})
   }
+
   toggle() {
-  this.setState({
+    this.setState({
     isOpen: !this.state.isOpen
   });
-  }
 
   render() {
     return (
@@ -26,10 +24,10 @@ export default class Navigation extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/foundations/">Foundations</NavLink>
+                <NavLink tag={Link} to="/foundations">Foundations</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/apps">Apps</NavLink>
+                <NavLink tag={Link} to="/apps">Apps</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

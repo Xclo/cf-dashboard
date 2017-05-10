@@ -1,3 +1,7 @@
+import {
+  SELECT_APP
+} from '../actions/types'
+
 export default function reducer(state={
     app: undefined,
     fetching: false,
@@ -6,18 +10,10 @@ export default function reducer(state={
   }, action) {
 
     switch (action.type) {
-      case "FETCH_APP_DETAILS": {
-        return {...state, fetching: true}
-      }
-      case "FETCH_APP_DETAILS_REJECTED": {
-        return {...state, fetching: false, error: action.payload}
-      }
-      case "FETCH_APP_DETAILS_FULFILLED": {
+      case SELECT_APP: {
         return {
           ...state,
-          fetching: false,
-          fetched: true,
-          app: action.payload,
+          app: action.payload
         }
       }
     }

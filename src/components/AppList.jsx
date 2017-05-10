@@ -16,12 +16,16 @@ class AppList extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchApps();
+    _.values(this.props.foundations).forEach((foundation) => {
+      if (foundation.auth) {
+          this.props.fetchApps(foundation.api)
+      }
+    });
   }
 
   renderApp(app) {
     return (
-      <AppCard key={app.guid} app={app}/>
+      <AppCard key={app.metadata.guid} app={app} selectApp={this.props.selectApp}/>
     );
   }
 
@@ -29,11 +33,9 @@ class AppList extends Component {
     const { apps } = this.props;
     return (
       <div>
-        <div>
-          <CardGroup>
-            {apps.map(this.renderApp)}
-          </CardGroup>
-        </div>
+        <CardGroup>
+          {apps.map(this.renderApp)}
+        </CardGroup>
       </div>
     )
   }

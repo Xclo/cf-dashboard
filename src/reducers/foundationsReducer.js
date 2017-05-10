@@ -43,7 +43,7 @@ export default function reducer(state = {
       }
       case LOGIN_FOUNDATION: {
         let foundations = {...state.all}
-        let auth = _.omit(action.payload, 'api');
+        let auth = action.payload;
         foundations[action.payload.api].auth = auth
         foundations[action.payload.api].loginModalOpen = false;
         localStorage.setItem(action.payload.api, JSON.stringify(auth));

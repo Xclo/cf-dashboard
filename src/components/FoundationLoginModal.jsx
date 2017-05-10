@@ -34,24 +34,3 @@ const FoundationLoginModal = props => {
 export default reduxForm({
   form: 'foundationLogin'
 })(FoundationLoginModal);
-
-
-{/* <BaseModal title='Login'
-           className='optional-custom-class'
-           show={}
-           onHide={() => this.closeModal()}>
-  <ModalBody>
-
-
-
-
-    API: {this.props.foundation.api}
-    <Input label="Email" id="email" placeholder="Email"/>
-    <Input label="Password" id="password" type="password" placeholder="Password"/>
-  </ModalBody>
-  <ModalFooter>
-    <DefaultButton onClick={() => this.handleLogin()}>
-      Login
-    </DefaultButton>
-  </ModalFooter>
-</BaseModal> */}
