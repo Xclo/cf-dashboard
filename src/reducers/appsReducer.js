@@ -2,7 +2,8 @@ import {
   FETCH_APPS,
   FETCH_APPS_REJECTED,
   FETCH_APPS_FULFILLED,
-  SELECTED_APP
+  SELECTED_APP,
+  LOGOUT_FOUNDATION
 } from '../actions/types'
 
 export default function reducer(state={
@@ -17,18 +18,43 @@ export default function reducer(state={
       case FETCH_APPS: {
         return {...state, fetching: true}
       }
+
       case FETCH_APPS_REJECTED: {
-        return {...state, fetching: false, error: action.payload}
+        let apps = [...state.appList]
+        apps = _.remove(apps, function(app) {
+            return app.api === action.payload.api;
+        });
+
+        return {
+          ...state,
+          fetching: false,
+          error: action.payload,
+          appList: apps
+        }
       }
+
       case FETCH_APPS_FULFILLED: {
+        let apps = [...state.appList]
+        apps = apps.concat(action.payload)
         return {
           ...state,
           fetching: false,
           fetched: true,
-          appList: action.payload,
+          appList: apps,
         }
       }
 
+      case LOGOUT_FOUNDATION: {
+        let apps = [...state.appList]
+        apps = _.remove(apps, function(app) {
+            return app.api === action.payload.api;
+        });
+
+        return {
+          ...state,
+          appList: apps
+        }
+      }
       // case "ADD_APP": {
       //   return {
       //     ...state,

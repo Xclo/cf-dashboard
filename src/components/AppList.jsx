@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { selectAppList, fetchAppsIfNeeded } from '../actions'
-import { Card, CardGroup, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardGroup, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button, CardDeck } from 'reactstrap';
 import { filterApps } from '../filters/searchFilters'
 
 
@@ -33,9 +33,9 @@ class AppList extends Component {
     const { apps } = this.props;
     return (
       <div>
-        <CardGroup>
+        <CardDeck>
           {apps.map(this.renderApp)}
-        </CardGroup>
+        </CardDeck>
       </div>
     )
   }

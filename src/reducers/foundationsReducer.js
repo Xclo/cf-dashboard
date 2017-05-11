@@ -7,7 +7,10 @@ import {
   LOGIN_FOUNDATION,
   LOGOUT_FOUNDATION,
   FOUNDATION_LOGIN_MODAL_OPEN_STATE,
-  TOGGLE_FOUNDATION
+  TOGGLE_FOUNDATION,
+  DONE_REFRESHING_FOUNDATION_TOKEN,
+  REFRESHING_FOUNDATION_TOKEN,
+  REFRESHED_FOUNDATION_TOKEN
 } from '../actions/types'
 
 export default function reducer(state = {
@@ -74,6 +77,35 @@ export default function reducer(state = {
         let foundations = {...state.all}
         let foundation = foundations[action.payload];
         foundation.selected = !foundation.selected
+        return {
+          ...state,
+          all: foundations
+        }
+      }
+
+      case DONE_REFRESHING_FOUNDATION_TOKEN: {
+        let foundations = {...state.all}
+        foundations[action.payload.api].refreshingToken = undefined
+        return {
+          ...state,
+          all: foundations
+        }
+      }
+
+      case REFRESHING_FOUNDATION_TOKEN: {
+        let foundations = {...state.all}
+        foundations[action.payload.api].refreshingToken = action.payload
+        return {
+          ...state,
+          all: foundations
+        }
+      }
+
+      case REFRESHED_FOUNDATION_TOKEN: {
+        let foundations = {...state.all}
+        let auth = action.payload;
+        foundations[action.payload.api].auth = auth
+        localStorage.setItem(action.payload.api, JSON.stringify(auth));
         return {
           ...state,
           all: foundations

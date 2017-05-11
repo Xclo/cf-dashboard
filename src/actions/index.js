@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {reset} from 'redux-form'
 import foundations from '../config/foundations'
+import moment from 'moment'
 
 import {
   FETCH_APPS_FULFILLED,
@@ -68,21 +69,16 @@ export function fetchApps (api) {
         dispatch({type: FETCH_APPS_FULFILLED, payload: response.data})
       })
       .catch((err) => {
-        if (err.response) {
-          dispatch({type: FETCH_APPS_REJECTED, payload: err.response.data})
-          if (err.response.status === 401) {
-            foundationRefreshToken().then(() => {
-              console.log('token refreshed?')
-            })
-          }
-        } else {
-          //more generic
-          let payload = {
-            api: api,
-            message: 'Error fetching apps'
-          }
-          dispatch({type: FETCH_APPS_REJECTED, payload: payload})
+        let payload = {
+          api: api,
+          message: 'Error fetching apps'
         }
+
+        if (err.response) {
+          payload.message = err.response.data
+        }
+
+        dispatch({type: FETCH_APPS_REJECTED, payload: payload})
 
       })
   }
@@ -123,33 +119,7 @@ export function foundationLogin(auth) {
             "tokenType": response.data.token_type,
             "accessToken": response.data.access_token,
             "refreshToken": response.data.refresh_token,
-            "expiresIn": response.data.expires_in
-          }
-          dispatch({type: LOGIN_FOUNDATION, payload: payload})
-          closeFoundationLoginModal(auth)
-          dispatch(reset('foundationLogin'))
-        } else {
-            dispatch({type: LOGIN_FOUNDATION_REJECTED, payload: response.data})
-        }
-
-      })
-      .catch((err) => {
-        dispatch({type: LOGIN_FOUNDATION_REJECTED, payload: err})
-      })
-  }
-}
-
-export function foundationRefreshToken(auth) {
-  return function(dispatch) {
-    return axios.post('http://localhost:5000/api/auth/refreshToken', {refresh_token: auth.refreshToken, api: auth.api})
-      .then((response) => {
-        if (response.data.token_type && response.data.access_token && response.data.refresh_token) {
-          const payload = {
-            "api": auth.api,
-            "tokenType": response.data.token_type,
-            "accessToken": response.data.access_token,
-            "refreshToken": response.data.refresh_token,
-            "expiresIn": response.data.expires_in
+            "expires": moment().add(response.data.expires_in, 'seconds').toString()
           }
           dispatch({type: LOGIN_FOUNDATION, payload: payload})
           closeFoundationLoginModal(auth)
@@ -169,6 +139,7 @@ export function foundationLogout(foundation) {
   const payload = {
     "api": foundation.api
   }
+  localStorage.removeItem(foundation.api);
   return function(dispatch) {
     dispatch({type: LOGOUT_FOUNDATION, payload: payload})
   }

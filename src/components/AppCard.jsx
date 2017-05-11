@@ -19,14 +19,16 @@ class AppCard extends Component {
     const {app} = this.props;
     return (
       <div>
-        <Card block inverse style={{ backgroundColor: '#333', borderColor: '#567' }}>
+        <Card>
           <CardBlock>
             <CardTitle>
               <a href="#" onClick={this.handleSelectApp}>{app.name}</a>
             </CardTitle>
+            <CardText>
+              Hi there
+            </CardText>
           </CardBlock>
         </Card>
-
       </div>
     );
   }
