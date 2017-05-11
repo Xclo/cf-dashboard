@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { selectAppList, fetchAppsIfNeeded } from '../actions'
-import { Card, CardGroup, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button, CardDeck } from 'reactstrap';
+import { CardColumns } from 'reactstrap';
 import { filterApps } from '../filters/searchFilters'
 
 
@@ -30,9 +30,9 @@ class AppList extends Component {
     var sortedApps = _.orderBy(apps, [app => app.name.toLowerCase(), status => app.status], ['asc', 'desc']);
     return (
       <div>
-        <CardDeck>
+        <CardColumns>
           {apps.map(this.renderApp)}
-        </CardDeck>
+        </CardColumns>
       </div>
     )
   }

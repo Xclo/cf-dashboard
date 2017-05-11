@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import { Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardText, CardBlock, CardTitle, CardSubtitle } from 'reactstrap';
 
 class AppCard extends Component {
 
@@ -18,18 +18,16 @@ class AppCard extends Component {
   render() {
     const {app} = this.props;
     return (
-      <div>
-        <Card>
-          <CardBlock>
-            <CardTitle>
-              <a href="#" onClick={this.handleSelectApp}>{app.name}</a>
-            </CardTitle>
-            <CardText>
-              Hi there
-            </CardText>
-          </CardBlock>
-        </Card>
-      </div>
+      <Card>
+        <CardBlock>
+          <CardTitle>
+            <a href="#" onClick={this.handleSelectApp}>{app.name}</a>
+          </CardTitle>
+          <CardText>
+            Hi there
+          </CardText>
+        </CardBlock>
+      </Card>
     );
   }
 }
