@@ -17,8 +17,22 @@ import {
   TOGGLE_FOUNDATION,
   SEARCH_FIELD_UPDATED,
   FETCH_APPS_NOT_AUTHENTICATED,
-  SELECT_APP
+  SELECT_APP,
+  SEND,
+  SEND_SUCCESS,
+  SEND_FAIL
+
 } from './types'
+
+
+export function send(id, content) {
+  const message = { id, content };
+  return {
+    type: 'socket',
+    types: [SEND, SEND_SUCCESS, SEND_FAIL],
+    promise: (socket) => socket.emit('SendMessage', message),
+  }
+}
 
 
 export function selectAppList (foundation) {

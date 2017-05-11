@@ -2,7 +2,7 @@ import {
   FETCH_APPS,
   FETCH_APPS_REJECTED,
   FETCH_APPS_FULFILLED,
-  SELECTED_APP
+  SELECTED_APP,
 } from '../actions/types'
 
 export default function reducer(state={

@@ -13,3 +13,6 @@ export const SELECT_APPLIST = 'SELECT_APPLIST';
 export const TOGGLE_FOUNDATION = 'TOGGLE_FOUNDATION';
 export const SEARCH_FIELD_UPDATED = 'SEARCH_FIELD_UPDATED';
 export const SELECT_APP = 'SELECT_APP';
+export const SEND = 'redux/message/SEND';
+export const SEND_SUCCESS = 'redux/message/SEND_SUCCESS';
+export const SEND_FAIL = 'redux/message/SEND_FAIL';
