@@ -27,7 +27,6 @@ import {
   TOGGLE_APP_STATE
 } from './types'
 
-
 export function send(id, content) {
   const message = { id, content };
   return {
@@ -37,14 +36,12 @@ export function send(id, content) {
   }
 }
 
-
 export function selectAppList (foundation) {
   return {
     type: SELECT_APPLIST,
     foundation
   }
 }
-
 
 export function fetchAppsIfNeeded(foundation) {
   return dispatch(fetchApps(subreddit));

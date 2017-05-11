@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import {BrowserRouter as Router, Route, Link, Root} from 'react-router-dom'
 import Home from './Home'
 import AppList from './AppList'
-import AppDetail from './AppDetail'
 import Navigation from './Navigation'
 import FoundationList from './FoundationList'
 import LeftNav from './LeftNav'
@@ -33,7 +32,6 @@ class App extends Component {
               <Route exact path="/" component={Home}/>
               <Route exact path="/apps" component={AppList}/>
               <Route exact path="/foundations" component={FoundationList}/>
-              <Route path="/apps/:id" component={AppDetail}/>
             </Col>
             <Col md="3">
               <RightPane/>
