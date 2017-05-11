@@ -13,8 +13,7 @@ export default function jwt({ dispatch, getState }) {
       if (typeof action === 'function') {
         _.map(getState().foundations.all, (foundation) => {
           if (!foundation.auth) return;
-          if (moment().subtract(10, 'minute').isAfter(moment(foundation.expires))) {
-
+          if (moment().add(5, 'minutes').isAfter(moment(foundation.auth.expires))) {
             if (!foundation.auth.refreshingToken) {
               return foundationRefreshToken(dispatch, foundation.auth).then(() => next(action));
             } else {
@@ -37,7 +36,7 @@ function foundationRefreshToken(dispatch, auth) {
           "tokenType": response.data.token_type,
           "accessToken": response.data.access_token,
           "refreshToken": response.data.refresh_token,
-          "expires": moment().add(response.data.expires_in, 'seconds').toString()
+          "expires": moment().add(response.data.expires_in, 'seconds').toISOString()
         }
 
         dispatch({type: REFRESHED_FOUNDATION_TOKEN, payload: payload})

@@ -21,8 +21,8 @@ import {
   SELECT_APP,
   SEND,
   SEND_SUCCESS,
-  SEND_FAIL
-
+  SEND_FAIL,
+  FETCHING_APPS
 } from './types'
 
 
@@ -54,49 +54,42 @@ export function selectApp(app) {
   }
 }
 
-export function fetchApps (api) {
-  let auth = localStorage.getItem(api)
-  if (auth) {
-    auth = JSON.parse(auth);
-  } else {
-    let payload = {
-      api: api,
-      message: 'Not Logged In'
-    }
-    return function(dispatch) {
-      dispatch({type: FETCH_APPS_NOT_AUTHENTICATED, payload: payload})
-    }
-  }
-
-  let request = {
-    url: 'http://localhost:5000/api/apps',
-    method: 'get',
-    headers: {
-      api: api,
-      authorization: `${auth.tokenType} ${auth.accessToken}`
-    }
-  }
-
+export function fetchApps (foundations) {
   return function(dispatch) {
-    axios(request)
-      .then((response) => {
-        dispatch({type: FETCH_APPS_FULFILLED, payload: response.data})
-      })
-      .catch((err) => {
-        let payload = {
-          api: api,
-          message: 'Error fetching apps'
+    let foundationPromises = [];
+    dispatch({type: FETCHING_APPS})
+
+    _.values(foundations).forEach(foundation => {
+      if (foundation.auth) {
+        let auth = localStorage.getItem(foundation.api)
+        auth = JSON.parse(auth);
+
+        let request = {
+          url: 'http://localhost:5000/api/apps',
+          method: 'get',
+          headers: {
+            api: foundation.api,
+            authorization: `${auth.tokenType} ${auth.accessToken}`
+          }
         }
+        foundationPromises.push(axios(request))
+      }
+    });
 
-        if (err.response) {
-          payload.message = err.response.data
-        }
 
-        dispatch({type: FETCH_APPS_REJECTED, payload: payload})
-
-      })
+    Promise.all(foundationPromises).then(responses => {
+      let apps = [];
+      responses.forEach(response => {
+        response.data.forEach(app => {
+          apps.push(app)
+        })
+      });
+      dispatch({type: FETCH_APPS_FULFILLED, payload: apps})
+    }).catch(error => {
+      console.log(error);
+      dispatch({type: FETCH_APPS_REJECTED, payload: error})
+    });
   }
-
 }
 
 export function fetchFoundations () {
@@ -133,7 +126,7 @@ export function foundationLogin(auth) {
             "tokenType": response.data.token_type,
             "accessToken": response.data.access_token,
             "refreshToken": response.data.refresh_token,
-            "expires": moment().add(response.data.expires_in, 'seconds').toString()
+            "expires": moment().add(response.data.expires_in, 'seconds').toISOString()
           }
           dispatch({type: LOGIN_FOUNDATION, payload: payload})
           closeFoundationLoginModal(auth)

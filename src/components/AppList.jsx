@@ -16,11 +16,7 @@ class AppList extends Component {
   }
 
   componentWillMount() {
-    _.values(this.props.foundations).forEach((foundation) => {
-      if (foundation.auth) {
-          this.props.fetchApps(foundation.api)
-      }
-    });
+    this.props.fetchApps(this.props.foundations)
   }
 
   renderApp(app) {

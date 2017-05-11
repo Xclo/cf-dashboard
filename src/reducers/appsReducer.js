@@ -22,7 +22,7 @@ export default function reducer(state={
       case FETCH_APPS_REJECTED: {
         let apps = [...state.appList]
         apps = _.remove(apps, function(app) {
-            return app.api === action.payload.api;
+          return app.api === action.payload.api;
         });
 
         return {
@@ -34,13 +34,11 @@ export default function reducer(state={
       }
 
       case FETCH_APPS_FULFILLED: {
-        let apps = [...state.appList]
-        apps = apps.concat(action.payload)
         return {
           ...state,
           fetching: false,
           fetched: true,
-          appList: apps,
+          appList: action.payload,
         }
       }
 
