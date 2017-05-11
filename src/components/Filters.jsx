@@ -7,6 +7,8 @@ import _ from 'lodash'
 import * as actions from '../actions'
 import { connect } from 'react-redux'
 import SearchBar from './SearchBar'
+import FilterBuildpackList from './FilterBuildpackList'
+import FilterAppStateList from './FilterAppStateList'
 
 class Filter extends Component {
   constructor(props) {
@@ -25,7 +27,10 @@ class Filter extends Component {
           <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Filters&w=318&h=90" alt="Filters" />
           <CardBlock>
             <FilterFoundationList/>
-              <SearchBar handleSearch={this.handleSearch}/>
+            <SearchBar handleSearch={this.handleSearch}/>
+            <br/>
+            <FilterBuildpackList/>
+            <FilterAppStateList/>
           </CardBlock>
         </Card>
       </CardDeck>

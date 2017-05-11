@@ -22,7 +22,9 @@ import {
   SEND,
   SEND_SUCCESS,
   SEND_FAIL,
-  FETCHING_APPS
+  FETCHING_APPS,
+  TOGGLE_BUILDPACK,
+  TOGGLE_APP_STATE
 } from './types'
 
 
@@ -81,6 +83,10 @@ export function fetchApps (foundations) {
       let apps = [];
       responses.forEach(response => {
         response.data.forEach(app => {
+          if (app.buildpack === null) {
+            app.buildpack = 'No Buildpack';
+          }
+          app.state = app.state.charAt(0).toUpperCase() + app.state.slice(1).toLowerCase(); //format the state of the app
           apps.push(app)
         })
       });
@@ -101,6 +107,18 @@ export function fetchFoundations () {
 export function toggleFoundation (api) {
   return function(dispatch) {
     dispatch({type: TOGGLE_FOUNDATION, payload: api});
+  }
+}
+
+export function toggleBuildpack (buildpack) {
+  return function(dispatch) {
+    dispatch({type: TOGGLE_BUILDPACK, payload: buildpack});
+  }
+}
+
+export function toggleAppState (state) {
+  return function(dispatch) {
+    dispatch({type: TOGGLE_APP_STATE, payload: state});
   }
 }
 

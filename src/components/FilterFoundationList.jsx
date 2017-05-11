@@ -17,11 +17,13 @@ class FilterFoundationList extends Component {
   }
 
   renderFoundations() {
-    return _.map(this.props.foundations, foundation => {
+    let {foundations, filters} = this.props;
+    return _.map(foundations, foundation => {
       if (foundation.auth) {
         return (
           <FilterFoundation key={foundation.name}
             foundation={foundation}
+            filters={filters}
             toggleFoundation={this.props.toggleFoundation}
           />
         )
@@ -41,7 +43,7 @@ class FilterFoundationList extends Component {
 }
 
 function mapStateToProps(state) {
-  return { foundations: state.foundations.all };
+  return { foundations: state.foundations.all, filters: state.filters };
 }
 
 export default connect(mapStateToProps, actions)(FilterFoundationList);

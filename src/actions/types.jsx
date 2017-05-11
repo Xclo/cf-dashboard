@@ -20,3 +20,5 @@ export const REFRESHED_FOUNDATION_TOKEN = 'REFRESHED_FOUNDATION_TOKEN';
 export const SEND = 'redux/message/SEND';
 export const SEND_SUCCESS = 'redux/message/SEND_SUCCESS';
 export const SEND_FAIL = 'redux/message/SEND_FAIL';
+export const TOGGLE_BUILDPACK = 'TOGGLE_BUILDPACK';
+export const TOGGLE_APP_STATE = 'TOGGLE_APP_STATE';
