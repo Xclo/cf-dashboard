@@ -26,9 +26,9 @@ class Filter extends Component {
         <Card>
           <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Filters&w=318&h=90" alt="Filters" />
           <CardBlock>
-            <FilterFoundationList/>
             <SearchBar handleSearch={this.handleSearch}/>
             <br/>
+            <FilterFoundationList/>
             <FilterBuildpackList/>
             <FilterAppStateList/>
           </CardBlock>

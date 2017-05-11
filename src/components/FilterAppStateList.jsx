@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import _ from 'lodash'
-import { Label, Form, FormGroup, Input} from 'reactstrap';
+import { Label, Form, FormGroup, Input, Collapse } from 'reactstrap';
 import FilterAppState from './FilterAppState'
 
 class FilterAppStateList extends Component {
@@ -10,10 +10,17 @@ class FilterAppStateList extends Component {
     super(props);
     this.renderAppStates = this.renderAppStates.bind(this);
     this.toggleAppState = this.toggleAppState.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.state = { collapse: false };
   }
 
   toggleAppState() {
     this.props.toggleAppState(this.props.appState);
+  }
+
+  toggle(e) {
+    e.preventDefault()
+    this.setState({ collapse: !this.state.collapse });
   }
 
   renderAppStates() {
@@ -33,8 +40,10 @@ class FilterAppStateList extends Component {
   render() {
     return (
       <div>
-        <h4>App States</h4>
-        {this.renderAppStates()}
+        <h4><a href="#" onClick={this.toggle}>App States</a></h4>
+        <Collapse isOpen={this.state.collapse}>
+          {this.renderAppStates()}
+        </Collapse>
       </div>
     )
   }
