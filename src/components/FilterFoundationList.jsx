@@ -18,12 +18,15 @@ class FilterFoundationList extends Component {
 
   renderFoundations() {
     return _.map(this.props.foundations, foundation => {
-      return (
-        <FilterFoundation key={foundation.name}
-          foundation={foundation}
-          toggleFoundation={this.props.toggleFoundation}
-        />
-      )
+      if (foundation.auth) {
+        return (
+          <FilterFoundation key={foundation.name}
+            foundation={foundation}
+            toggleFoundation={this.props.toggleFoundation}
+          />
+        )
+      }
+
     })
   }
 
