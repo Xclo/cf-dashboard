@@ -11,26 +11,39 @@ import RightPane from './RightPane'
 
 import { Container, Row, Col } from 'reactstrap';
 
-const App = () => (
-  <Router>
-    <Container>
-      <Navigation/>
-      <Row>
-        <Col md="3">
-          <LeftNav/>
-        </Col>
-        <Col md="6">
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/apps" component={AppList}/>
-          <Route exact path="/foundations" component={FoundationList}/>
-          <Route path="/apps/:id" component={AppDetail}/>
-        </Col>
-        <Col md="3">
-          <RightPane/>
-        </Col>
-      </Row>
-    </Container>
-  </Router>
-);
+class App extends Component {
 
-export default App
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+  }
+
+  render() {
+    return (
+      <Router>
+        <Container>
+          <Navigation/>
+          <Row>
+            <Col md="3">
+              <LeftNav/>
+            </Col>
+            <Col md="6">
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/apps" component={AppList}/>
+              <Route exact path="/foundations" component={FoundationList}/>
+              <Route path="/apps/:id" component={AppDetail}/>
+            </Col>
+            <Col md="3">
+              <RightPane/>
+            </Col>
+          </Row>
+        </Container>
+      </Router>
+    );
+  }
+}
+
+
+export default App;

@@ -31,6 +31,7 @@ class AppList extends Component {
 
   render() {
     const { apps } = this.props;
+    var sortedApps = _.orderBy(apps, [app => app.name.toLowerCase(), status => app.status], ['asc', 'desc']);
     return (
       <div>
         <CardDeck>
