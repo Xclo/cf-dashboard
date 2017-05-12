@@ -13,18 +13,16 @@ class FilterFoundation extends Component {
   }
 
   render() {
-    const {foundation} = this.props;
+    const {foundation, filters} = this.props;
     return(
-      <div>
-        <Form className="foundationCheckBoxes">
-          <FormGroup check>
-            <Label>
-              <Input type="checkbox" checked={foundation.selected} onChange={this.toggleFoundation}/>
-              {foundation.name}
-            </Label>
-          </FormGroup>
-        </Form>
-      </div>
+      <Form className="filterCheckBoxes">
+        <FormGroup check>
+          <Label>
+            <Input type="checkbox" checked={filters.selectedFoundations.indexOf(foundation.api) !== -1} onChange={this.toggleFoundation}/>
+            {foundation.name}
+          </Label>
+        </FormGroup>
+      </Form>
     )
   }
 }

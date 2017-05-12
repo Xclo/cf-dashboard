@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import { Card, CardText, CardBlock, CardTitle, CardSubtitle } from 'reactstrap';
+import { Card, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 class AppCard extends Component {
 
@@ -15,10 +15,19 @@ class AppCard extends Component {
     selectApp(app)
   }
 
+  appStatus() {
+    const {app} = this.props;
+    if (app.state === 'Started') {
+      return 'started'
+    } else if (app.state === 'Stopped') {
+      return 'stopped'
+    }
+  }
+
   render() {
     const {app} = this.props;
     return (
-      <Card>
+      <Card className={this.appStatus()}>
         <CardBlock>
           <CardTitle>
             <a href="#" onClick={this.handleSelectApp}>{app.name}</a>
@@ -26,6 +35,9 @@ class AppCard extends Component {
           <CardText>
             Hi there
           </CardText>
+          <div>{app.state}</div>
+          <div>{app.buildpack}</div>
+          <div><a href={app.route} target="_blank">{app.route}</a></div>
         </CardBlock>
       </Card>
     );

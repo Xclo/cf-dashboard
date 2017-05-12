@@ -45,6 +45,22 @@ export function dispatchClientAction (action) {
       console.log("Fetch Apps Foundation");
 
     }
+=======
+  SEND,
+  SEND_SUCCESS,
+  SEND_FAIL,
+  FETCHING_APPS,
+  TOGGLE_BUILDPACK,
+  TOGGLE_APP_STATE
+} from './types'
+
+export function send(id, content) {
+  const message = { id, content };
+  return {
+    type: 'socket',
+    types: [SEND, SEND_SUCCESS, SEND_FAIL],
+    promise: (socket) => socket.emit('SendMessage', message),
+>>>>>>> 8d9c085e1b64853fd5541d60076368f9a86c1637
   }
 }
 
@@ -56,6 +72,13 @@ export function selectAppList (foundation) {
   }
 }
 
+<<<<<<< HEAD
+=======
+export function fetchAppsIfNeeded(foundation) {
+  return dispatch(fetchApps(subreddit));
+}
+
+>>>>>>> 8d9c085e1b64853fd5541d60076368f9a86c1637
 export function selectApp(app) {
   return function(dispatch) {
     dispatch({type: SELECT_APP, meta: {remote: true}, payload: app})
@@ -89,6 +112,10 @@ export function fetchApps (foundations) {
       let apps = [];
       responses.forEach(response => {
         response.data.forEach(app => {
+          if (app.buildpack === null) {
+            app.buildpack = 'No Buildpack';
+          }
+          app.state = app.state.charAt(0).toUpperCase() + app.state.slice(1).toLowerCase(); //format the state of the app
           apps.push(app)
         })
       });
@@ -109,6 +136,18 @@ export function fetchFoundations () {
 export function toggleFoundation (api) {
   return function(dispatch) {
     dispatch({type: TOGGLE_FOUNDATION, meta: {remote: true}, payload: api});
+  }
+}
+
+export function toggleBuildpack (buildpack) {
+  return function(dispatch) {
+    dispatch({type: TOGGLE_BUILDPACK, payload: buildpack});
+  }
+}
+
+export function toggleAppState (state) {
+  return function(dispatch) {
+    dispatch({type: TOGGLE_APP_STATE, payload: state});
   }
 }
 
