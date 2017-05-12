@@ -40,6 +40,7 @@
     "webpack-dev-server": "^2.4.4"
   },
   "dependencies": {
+    "@giantmachines/redux-websocket": "git+https://github.com/giantmachines/redux-websocket.git",
     "axios": "^0.16.1",
     "babel-preset-stage-1": "^6.24.1",
     "bluebird": "^3.5.0",

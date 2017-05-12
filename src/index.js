@@ -6,6 +6,7 @@ import reducers from './reducers';
 import store from "./middleware/store"
 import 'bootstrap/dist/css/bootstrap.css';
 
+
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin();
 

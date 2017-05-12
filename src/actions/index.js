@@ -19,45 +19,53 @@ import {
   SEARCH_FIELD_UPDATED,
   FETCH_APPS_NOT_AUTHENTICATED,
   SELECT_APP,
-  SEND,
-  SEND_SUCCESS,
-  SEND_FAIL,
   FETCHING_APPS
 } from './types'
 
 
-export function send(id, content) {
-  const message = { id, content };
-  return {
-    type: 'socket',
-    types: [SEND, SEND_SUCCESS, SEND_FAIL],
-    promise: (socket) => socket.emit('SendMessage', message),
+export function dispatchClientAction (action) {
+  console.log("dispatchClientAction::" + action);
+
+  switch (action.type) {
+    case FETCH_APPS: {
+      console.log("Fetch Apps");
+    }
+
+    case FETCH_APPS_REJECTED: {
+      console.log("Fetch Apps Rejected");
+
+    }
+
+    case FETCH_APPS_FULFILLED: {
+      console.log("Fetch Apps Fulfilled");
+
+    }
+
+    case LOGOUT_FOUNDATION: {
+      console.log("Fetch Apps Foundation");
+
+    }
   }
 }
-
 
 export function selectAppList (foundation) {
   return {
     type: SELECT_APPLIST,
+    meta: {remote: true},
     foundation
   }
 }
 
-
-export function fetchAppsIfNeeded(foundation) {
-  return dispatch(fetchApps(subreddit));
-}
-
 export function selectApp(app) {
   return function(dispatch) {
-    dispatch({type: SELECT_APP, payload: app})
+    dispatch({type: SELECT_APP, meta: {remote: true}, payload: app})
   }
 }
 
 export function fetchApps (foundations) {
   return function(dispatch) {
     let foundationPromises = [];
-    dispatch({type: FETCHING_APPS})
+    dispatch({type: FETCHING_APPS, meta: {remote: true}})
 
     _.values(foundations).forEach(foundation => {
       if (foundation.auth) {
@@ -94,13 +102,13 @@ export function fetchApps (foundations) {
 
 export function fetchFoundations () {
   return function(dispatch) {
-    dispatch({type: FETCH_FOUNDATIONS_FULFILLED, payload: foundations})
+    dispatch({type: FETCH_FOUNDATIONS_FULFILLED, meta: {remote: true}, payload: foundations})
   }
 }
 
 export function toggleFoundation (api) {
   return function(dispatch) {
-    dispatch({type: TOGGLE_FOUNDATION, payload: api});
+    dispatch({type: TOGGLE_FOUNDATION, meta: {remote: true}, payload: api});
   }
 }
 
@@ -108,10 +116,10 @@ export function fetchAppDetail () {
   return function(dispatch) {
     axios.get('http://localhost:5000/api/stub/app/1')
       .then((response) => {
-        dispatch({type: FETCH_APP_DETAILS_FULFILLED, payload: response.data})
+        dispatch({type: FETCH_APP_DETAILS_FULFILLED, meta: {remote: true}, payload: response.data})
       })
       .catch((err) => {
-        dispatch({type: FETCH_APP_DETAILS_REJECTED, payload: err})
+        dispatch({type: FETCH_APP_DETAILS_REJECTED, meta: {remote: true}, payload: err})
       })
   }
 }
@@ -128,16 +136,16 @@ export function foundationLogin(auth) {
             "refreshToken": response.data.refresh_token,
             "expires": moment().add(response.data.expires_in, 'seconds').toISOString()
           }
-          dispatch({type: LOGIN_FOUNDATION, payload: payload})
+          dispatch({type: LOGIN_FOUNDATION, meta: {remote: true}, payload: payload})
           closeFoundationLoginModal(auth)
           dispatch(reset('foundationLogin'))
         } else {
-            dispatch({type: LOGIN_FOUNDATION_REJECTED, payload: response.data})
+            dispatch({type: LOGIN_FOUNDATION_REJECTED, meta: {remote: true}, payload: response.data})
         }
 
       })
       .catch((err) => {
-        dispatch({type: LOGIN_FOUNDATION_REJECTED, payload: err})
+        dispatch({type: LOGIN_FOUNDATION_REJECTED, meta: {remote: true}, payload: err})
       })
   }
 }
@@ -148,7 +156,7 @@ export function foundationLogout(foundation) {
   }
   localStorage.removeItem(foundation.api);
   return function(dispatch) {
-    dispatch({type: LOGOUT_FOUNDATION, payload: payload})
+    dispatch({type: LOGOUT_FOUNDATION, meta: {remote: true}, payload: payload})
   }
 }
 
