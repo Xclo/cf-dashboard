@@ -19,7 +19,9 @@ import {
   SEARCH_FIELD_UPDATED,
   FETCH_APPS_NOT_AUTHENTICATED,
   SELECT_APP,
-  FETCHING_APPS
+  FETCHING_APPS,
+  TOGGLE_BUILDPACK,
+  TOGGLE_APP_STATE
 } from './types'
 
 
@@ -45,22 +47,6 @@ export function dispatchClientAction (action) {
       console.log("Fetch Apps Foundation");
 
     }
-=======
-  SEND,
-  SEND_SUCCESS,
-  SEND_FAIL,
-  FETCHING_APPS,
-  TOGGLE_BUILDPACK,
-  TOGGLE_APP_STATE
-} from './types'
-
-export function send(id, content) {
-  const message = { id, content };
-  return {
-    type: 'socket',
-    types: [SEND, SEND_SUCCESS, SEND_FAIL],
-    promise: (socket) => socket.emit('SendMessage', message),
->>>>>>> 8d9c085e1b64853fd5541d60076368f9a86c1637
   }
 }
 
@@ -72,13 +58,6 @@ export function selectAppList (foundation) {
   }
 }
 
-<<<<<<< HEAD
-=======
-export function fetchAppsIfNeeded(foundation) {
-  return dispatch(fetchApps(subreddit));
-}
-
->>>>>>> 8d9c085e1b64853fd5541d60076368f9a86c1637
 export function selectApp(app) {
   return function(dispatch) {
     dispatch({type: SELECT_APP, meta: {remote: true}, payload: app})
