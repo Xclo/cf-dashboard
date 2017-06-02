@@ -32,10 +32,23 @@ class FilterBuildpackList extends Component {
     })
   }
 
+  renderOpenClose() {
+    if (this.state.collapse === false) {
+      return (
+        <i className="fa fa-chevron-right" aria-hidden="true"></i>
+      )
+    } else {
+      return (
+        <i className="fa fa-chevron-down" aria-hidden="true"></i>
+      )
+    }
+
+  }
+
   render() {
     return (
       <div>
-        <h4><a href="#" onClick={this.toggle}>Buildpacks</a></h4>
+        <h4>Buildpacks&nbsp;&nbsp;<a href="#" onClick={this.toggle}>{this.renderOpenClose()}</a></h4>
         <Collapse isOpen={this.state.collapse}>
           {this.renderBuildpacks()}
         </Collapse>

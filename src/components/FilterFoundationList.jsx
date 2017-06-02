@@ -3,7 +3,7 @@ import FilterFoundation from './FilterFoundation'
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import _ from 'lodash'
-import { Collapse, Button } from 'reactstrap';
+import { Collapse } from 'reactstrap';
 
 class FilterFoundationList extends Component {
   constructor(props) {
@@ -36,16 +36,27 @@ class FilterFoundationList extends Component {
           />
         )
       }
-
     })
+  }
+
+  renderOpenClose() {
+    if (this.state.collapse === false) {
+      return (
+        <i className="fa fa-chevron-right" aria-hidden="true"></i>
+      )
+    } else {
+      return (
+        <i className="fa fa-chevron-down" aria-hidden="true"></i>
+      )
+    }
   }
 
   render() {
     return (
       <div>
-        <h4><a href="#" onClick={this.toggle}>Foundations</a></h4>
+        <h4>Foundations&nbsp;&nbsp;<a href="#" onClick={this.toggle}>{this.renderOpenClose()}</a></h4>
         <Collapse isOpen={this.state.collapse}>
-        {this.renderFoundations()}
+          {this.renderFoundations()}
         </Collapse>
       </div>
     )

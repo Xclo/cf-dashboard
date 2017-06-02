@@ -6,42 +6,32 @@ import FilterFoundationList from './FilterFoundationList'
 import _ from 'lodash'
 import * as actions from '../actions'
 import { connect } from 'react-redux'
-import SearchBar from './SearchBar'
+
 import FilterBuildpackList from './FilterBuildpackList'
 import FilterAppStateList from './FilterAppStateList'
 
 class Filter extends Component {
   constructor(props) {
     super(props);
-    this.handleSearch = this.handleSearch.bind(this);
-  }
-
-  handleSearch(e) {
-    this.props.searchFieldUpdated(e.target.value);
   }
 
   render() {
     return (
-      <CardDeck>
-        <Card>
-          <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Filters&w=318&h=90" alt="Filters" />
-          <CardBlock>
-            <SearchBar handleSearch={this.handleSearch}/>
-            <br/>
-            <FilterFoundationList/>
-            <FilterBuildpackList/>
-            <FilterAppStateList/>
-          </CardBlock>
-        </Card>
-      </CardDeck>
+      <div>
+        <br/>
+        <h3>Filters</h3>
+        <br/>
+        <FilterFoundationList/>
+        <FilterBuildpackList/>
+        <FilterAppStateList/>
+      </div>
+
     )
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    searchField: state.filters.searchField
-  }
+  return {}
 }
 
 export default connect(mapStateToProps, actions)(Filter);

@@ -10,8 +10,7 @@ import { connect } from 'react-redux'
 const SearchBar = props => {
   return (
     <InputGroup>
-      <InputGroupAddon>Search</InputGroupAddon>
-      <Input placeholder="..." onChange={props.handleSearch}/>
+      <Input placeholder="Search" onChange={props.handleSearch}/>
     </InputGroup>
   )
 }
