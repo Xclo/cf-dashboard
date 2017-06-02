@@ -4,9 +4,10 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { selectAppList, fetchAppsIfNeeded } from '../actions'
-import { CardColumns } from 'reactstrap';
+import { CardColumns, Container, Row, Col } from 'reactstrap';
 import { filterApps } from '../filters/searchFilters'
-
+import LeftNav from './LeftNav'
+import RightPane from './RightPane'
 
 class AppList extends Component {
 
@@ -29,11 +30,19 @@ class AppList extends Component {
     const { apps } = this.props;
     var sortedApps = _.orderBy(apps, [app => app.name.toLowerCase(), status => app.status], ['asc', 'desc']);
     return (
-      <div>
-        <CardColumns>
-          {apps.map(this.renderApp)}
-        </CardColumns>
-      </div>
+      <Row>
+        <Col md="3">
+          <LeftNav/>
+        </Col>
+        <Col md="6">
+          <CardColumns>
+            {apps.map(this.renderApp)}
+          </CardColumns>
+        </Col>
+        <Col md="3">
+          <RightPane/>
+        </Col>
+      </Row>
     )
   }
 }

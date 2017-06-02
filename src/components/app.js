@@ -5,10 +5,8 @@ import Home from './Home'
 import AppList from './AppList'
 import Navigation from './Navigation'
 import FoundationList from './FoundationList'
-import LeftNav from './LeftNav'
-import RightPane from './RightPane'
 
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 class App extends Component {
 
@@ -24,19 +22,9 @@ class App extends Component {
       <Router>
         <Container>
           <Navigation/>
-          <Row>
-            <Col md="3">
-              <LeftNav/>
-            </Col>
-            <Col md="6">
-              <Route exact path="/" component={Home}/>
-              <Route exact path="/apps" component={AppList}/>
-              <Route exact path="/foundations" component={FoundationList}/>
-            </Col>
-            <Col md="3">
-              <RightPane/>
-            </Col>
-          </Row>
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/apps" component={AppList}/>
+          <Route exact path="/foundations" component={FoundationList}/>
         </Container>
       </Router>
     );
