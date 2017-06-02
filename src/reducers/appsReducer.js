@@ -38,7 +38,8 @@ export default function reducer(state={
           ...state,
           fetching: false,
           fetched: true,
-          appList: action.payload,
+          appList: action.payload
+
         }
       }
 

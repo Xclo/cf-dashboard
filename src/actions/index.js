@@ -19,6 +19,7 @@ import {
   SEARCH_FIELD_UPDATED,
   FETCH_APPS_NOT_AUTHENTICATED,
   SELECT_APP,
+  SELECT_APP_FAILED,
   FETCHING_APPS,
   TOGGLE_BUILDPACK,
   TOGGLE_APP_STATE
@@ -63,8 +64,32 @@ export function fetchAppsIfNeeded(foundation) {
 }
 
 export function selectApp(app) {
+  // console.log("In select App" + app.metadata.guid);
+  // return function(dispatch) {
+  //   dispatch({type: SELECT_APP, meta: {remote: true}, payload: app})
+  //   fetchAppDetail(app.guid);
+  // }
+  let auth = localStorage.getItem(app.api)
+  auth = JSON.parse(auth);
+
+  let request = {
+    url: 'http://localhost:5000/api/apps/'+app.metadata.guid + '/health',
+    method: 'get',
+    headers: {
+      api: app.api,
+      authorization: `${auth.tokenType} ${auth.accessToken}`
+    }
+  }
+
   return function(dispatch) {
-    dispatch({type: SELECT_APP, meta: {remote: true}, payload: app})
+    console.log("In fetchAppDetail" + app.metadata.guid);
+    axios(request)
+      .then((response) => {
+        dispatch({type: SELECT_APP, payload: app})
+      })
+      .catch((err) => {
+        dispatch({type: SELECT_APP_FAILED, meta: {remote: true}, payload: err})
+      })
   }
 }
 
@@ -134,9 +159,10 @@ export function toggleAppState (state) {
   }
 }
 
-export function fetchAppDetail () {
+export function fetchAppDetail (id) {
   return function(dispatch) {
-    axios.get('http://localhost:5000/api/stub/app/1')
+    console.log("In fetchAppDetail" + id);
+    axios.get('http://localhost:5000/api/app/'+id)
       .then((response) => {
         dispatch({type: FETCH_APP_DETAILS_FULFILLED, meta: {remote: true}, payload: response.data})
       })
