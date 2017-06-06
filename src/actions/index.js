@@ -59,9 +59,6 @@ export function selectAppList (foundation) {
   }
 }
 
-export function fetchAppsIfNeeded(foundation) {
-  return dispatch(fetchApps(subreddit));
-}
 
 export function selectApp(app) {
   // console.log("In select App" + app.metadata.guid);
@@ -73,7 +70,7 @@ export function selectApp(app) {
   auth = JSON.parse(auth);
 
   let request = {
-    url: 'http://localhost:5000/api/apps/'+app.metadata.guid + '/health',
+    url: 'http://localhost:5000/api/apps/'+app.metadata.guid + '',
     method: 'get',
     headers: {
       api: app.api,
@@ -81,11 +78,21 @@ export function selectApp(app) {
     }
   }
 
+  var appStatus = {
+    "status":"",
+    "diskSpace":{
+      "status":"",
+      "total":0,
+      "free":0,
+      "threshold":0
+    }
+  };
+
   return function(dispatch) {
-    console.log("In fetchAppDetail" + app.metadata.guid);
     axios(request)
       .then((response) => {
         dispatch({type: SELECT_APP, payload: app})
+
       })
       .catch((err) => {
         dispatch({type: SELECT_APP_FAILED, meta: {remote: true}, payload: err})

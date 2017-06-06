@@ -9,6 +9,8 @@ export default function reducer(state={
     error: null,
   }, action) {
 
+    console.log("In app Detail Reducers: " + action.type + " payload " + JSON.stringify(action.payload));
+
     switch (action.type) {
       case SELECT_APP: {
         return {
