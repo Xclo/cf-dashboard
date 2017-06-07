@@ -78,21 +78,10 @@ export function selectApp(app) {
     }
   }
 
-  var appStatus = {
-    "status":"",
-    "diskSpace":{
-      "status":"",
-      "total":0,
-      "free":0,
-      "threshold":0
-    }
-  };
-
   return function(dispatch) {
     axios(request)
       .then((response) => {
-        dispatch({type: SELECT_APP, payload: app})
-
+        dispatch({type: SELECT_APP, payload: response})
       })
       .catch((err) => {
         dispatch({type: SELECT_APP_FAILED, meta: {remote: true}, payload: err})
