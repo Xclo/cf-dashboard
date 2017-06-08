@@ -5,6 +5,7 @@ import Home from './Home'
 import AppList from './AppList'
 import Navigation from './Navigation'
 import FoundationList from './FoundationList'
+import PipelineList from './PipelineList'
 
 import { Container } from 'reactstrap';
 
@@ -25,6 +26,7 @@ class App extends Component {
           <Route exact path="/" component={Home}/>
           <Route exact path="/apps" component={AppList}/>
           <Route exact path="/foundations" component={FoundationList}/>
+          <Route exact path="/pipelines" component={PipelineList}/>
         </Container>
       </Router>
     );

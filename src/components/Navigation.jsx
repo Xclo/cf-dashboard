@@ -39,6 +39,9 @@ class Navigation extends Component {
                 <SearchBar handleSearch={this.handleSearch}/>
               </NavItem>
               <NavItem>
+                <NavLink tag={Link} to="/pipelines">Pipelines</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink tag={Link} to="/foundations">Foundations</NavLink>
               </NavItem>
               <NavItem>
