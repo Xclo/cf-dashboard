@@ -29,7 +29,6 @@ export function dispatchClientAction (action) {
 export function selectAppList (foundation) {
   return {
     type: types.SELECT_APPLIST,
-    meta: {remote: true},
     foundation
   }
 }
@@ -54,7 +53,7 @@ export function selectApp(app) {
         dispatch({type: types.SELECT_APP, payload: response})
       })
       .catch((err) => {
-        dispatch({type: types.SELECT_APP_FAILED, meta: {remote: true}, payload: err})
+        dispatch({type: types.SELECT_APP_FAILED, payload: err})
       })
   }
 }
@@ -62,7 +61,7 @@ export function selectApp(app) {
 export function fetchApps (foundations) {
   return function(dispatch) {
     let foundationPromises = [];
-    dispatch({type: types.FETCHING_APPS, meta: {remote: true}})
+    dispatch({type: types.FETCHING_APPS})
 
     _.values(foundations).forEach(foundation => {
       if (foundation.auth) {
@@ -106,10 +105,10 @@ export function fetchAppDetail (id) {
     console.log("In fetchAppDetail" + id);
     axios.get('http://localhost:5000/api/app/'+id)
       .then((response) => {
-        dispatch({type: types.FETCH_APP_DETAILS_FULFILLED, meta: {remote: true}, payload: response.data})
+        dispatch({type: types.FETCH_APP_DETAILS_FULFILLED, payload: response.data})
       })
       .catch((err) => {
-        dispatch({type: types.FETCH_APP_DETAILS_REJECTED, meta: {remote: true}, payload: err})
+        dispatch({type: types.FETCH_APP_DETAILS_REJECTED, payload: err})
       })
   }
 }

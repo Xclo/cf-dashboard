@@ -7,7 +7,7 @@ import moment from 'moment'
 
 export function fetchFoundations () {
   return function(dispatch) {
-    dispatch({type: types.FETCH_FOUNDATIONS_FULFILLED, meta: {remote: true}, payload: foundations})
+    dispatch({type: types.FETCH_FOUNDATIONS_FULFILLED, payload: foundations})
   }
 }
 
@@ -24,16 +24,16 @@ export function foundationLogin(auth) {
             "refreshToken": response.data.refresh_token,
             "expires": moment().add(response.data.expires_in, 'seconds').toISOString()
           }
-          dispatch({type: types.LOGIN_FOUNDATION, meta: {remote: true}, payload: payload})
+          dispatch({type: types.LOGIN_FOUNDATION, payload: payload})
           closeFoundationLoginModal(auth)
           dispatch(reset('foundationLogin'))
         } else {
-            dispatch({type: types.LOGIN_FOUNDATION_REJECTED, meta: {remote: true}, payload: response.data})
+            dispatch({type: types.LOGIN_FOUNDATION_REJECTED, payload: response.data})
         }
 
       })
       .catch((err) => {
-        dispatch({type: types.LOGIN_FOUNDATION_REJECTED, meta: {remote: true}, payload: err})
+        dispatch({type: types.LOGIN_FOUNDATION_REJECTED, payload: err})
       })
   }
 }
@@ -44,7 +44,7 @@ export function foundationLogout(foundation) {
   }
   localStorage.removeItem(foundation.api);
   return function(dispatch) {
-    dispatch({type: types.LOGOUT_FOUNDATION, meta: {remote: true}, payload: payload})
+    dispatch({type: types.LOGOUT_FOUNDATION, payload: payload})
   }
 }
 

@@ -12,13 +12,13 @@ class FilterAppState extends Component {
   }
 
   render() {
-    const {appState, filters} = this.props;
+    const {appState, filters, appCount} = this.props;
     return(
       <Form className="filterCheckBoxes">
         <FormGroup check>
           <Label>
             <Input type="checkbox" checked={filters.selectedAppStates.indexOf(appState) !== -1} onChange={this.toggleAppState}/>
-            {appState}
+            {appState} ({appCount})
           </Label>
         </FormGroup>
       </Form>

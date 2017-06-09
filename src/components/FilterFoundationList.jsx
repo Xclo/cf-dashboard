@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import _ from 'lodash'
 import { Collapse } from 'reactstrap';
+import { filterApps } from '../filters/searchFilters'
 
 class FilterFoundationList extends Component {
   constructor(props) {
@@ -25,13 +26,16 @@ class FilterFoundationList extends Component {
   }
 
   renderFoundations() {
-    let {foundations, filters} = this.props;
+    let {foundations, filters, apps} = this.props;
     return _.map(foundations, foundation => {
       if (foundation.auth) {
+
+        let appCount = _.filter(apps, {api: foundation.api}).length
         return (
           <FilterFoundation key={foundation.name}
             foundation={foundation}
             filters={filters}
+            appCount={appCount}
             toggleFoundation={this.props.toggleFoundation}
           />
         )
@@ -54,7 +58,7 @@ class FilterFoundationList extends Component {
   render() {
     return (
       <div>
-        <h4>Foundations&nbsp;&nbsp;<a href="#" onClick={this.toggle}>{this.renderOpenClose()}</a></h4>
+        <h4><a href="#" onClick={this.toggle}>Foundations&nbsp;&nbsp;{this.renderOpenClose()}</a></h4>
         <Collapse isOpen={this.state.collapse}>
           {this.renderFoundations()}
         </Collapse>
@@ -64,7 +68,10 @@ class FilterFoundationList extends Component {
 }
 
 function mapStateToProps(state) {
-  return { foundations: state.foundations.all, filters: state.filters };
+  return {
+    foundations: state.foundations.all, filters: state.filters,
+    apps: filterApps(state.apps.appList, state.filters)
+  };
 }
 
 export default connect(mapStateToProps, actions)(FilterFoundationList);

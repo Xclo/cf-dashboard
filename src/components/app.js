@@ -6,6 +6,8 @@ import AppList from './AppList'
 import Navigation from './Navigation'
 import FoundationList from './FoundationList'
 import PipelineList from './PipelineList'
+import * as actions from '../actions';
+import { connect } from 'react-redux';
 
 import { Container } from 'reactstrap';
 
@@ -15,7 +17,8 @@ class App extends Component {
     super(props)
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    this.props.fetchFoundations()
   }
 
   render() {
@@ -33,5 +36,8 @@ class App extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {};
+}
 
-export default App;
+export default connect(mapStateToProps, actions)(App);

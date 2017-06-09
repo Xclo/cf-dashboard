@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Label, Form, FormGroup, Input} from 'reactstrap';
 
 
-class FilterFoundation extends Component {
+class FilterBuildpack extends Component {
   constructor(props) {
     super(props);
     this.toggleBuildpack = this.toggleBuildpack.bind(this);
@@ -13,13 +13,13 @@ class FilterFoundation extends Component {
   }
 
   render() {
-    const {buildpack, filters} = this.props;
+    const {buildpack, filters, appCount} = this.props;
     return(
       <Form className="filterCheckBoxes" key={buildpack}>
         <FormGroup check>
           <Label>
             <Input type="checkbox" checked={filters.selectedBuildpacks.indexOf(buildpack) !== -1} onChange={this.toggleBuildpack}/>
-            {buildpack}
+            {buildpack} ({appCount})
           </Label>
         </FormGroup>
       </Form>
@@ -27,4 +27,4 @@ class FilterFoundation extends Component {
   }
 }
 
-export default FilterFoundation
+export default FilterBuildpack

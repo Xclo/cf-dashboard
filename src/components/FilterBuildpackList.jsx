@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import _ from 'lodash'
 import { Label, Form, FormGroup, Input, Collapse} from 'reactstrap';
 import FilterBuildpack from './FilterBuildpack'
+import { filterApps } from '../filters/searchFilters'
 
 class FilterBuildpackList extends Component {
   constructor(props) {
@@ -19,13 +20,15 @@ class FilterBuildpackList extends Component {
   }
 
   renderBuildpacks() {
-    let {filters} = this.props
+    let {filters, apps} = this.props
 
     return _.map(filters.availableBuildpacks, buildpack => {
+      let appCount = _.filter(apps, {buildpack: buildpack}).length
       return (
         <FilterBuildpack key={buildpack}
           buildpack={buildpack}
           filters={filters}
+          appCount={appCount}
           toggleBuildpack={this.props.toggleBuildpack}
         />
       )
@@ -42,13 +45,12 @@ class FilterBuildpackList extends Component {
         <i className="fa fa-chevron-down" aria-hidden="true"></i>
       )
     }
-
   }
 
   render() {
     return (
       <div>
-        <h4>Buildpacks&nbsp;&nbsp;<a href="#" onClick={this.toggle}>{this.renderOpenClose()}</a></h4>
+        <h4><a href="#" onClick={this.toggle}>Buildpacks&nbsp;&nbsp;{this.renderOpenClose()}</a></h4>
         <Collapse isOpen={this.state.collapse}>
           {this.renderBuildpacks()}
         </Collapse>
@@ -58,7 +60,10 @@ class FilterBuildpackList extends Component {
 }
 
 function mapStateToProps(state) {
-  return { filters: state.filters };
+  return {
+    filters: state.filters,
+    apps: filterApps(state.apps.appList, state.filters)
+  };
 }
 
 export default connect(mapStateToProps, actions)(FilterBuildpackList);

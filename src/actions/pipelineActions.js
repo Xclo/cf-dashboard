@@ -8,7 +8,7 @@ import moment from 'moment'
 export function fetchPipelines () {
   console.log("Pipelines " + pipelines)
   return function(dispatch) {
-    dispatch({type: types.FETCH_PIPELINES_FULFILLED, meta: {remote: true}, payload: pipelines})
+    dispatch({type: types.FETCH_PIPELINES_FULFILLED, payload: pipelines})
   }
 }
 
@@ -24,16 +24,16 @@ export function pipelineLogin(auth) {
             "refreshToken": response.data.refresh_token,
             "expires": moment().add(response.data.expires_in, 'seconds').toISOString()
           }
-          dispatch({type: types.LOGIN_PIPELINE, meta: {remote: true}, payload: payload})
+          dispatch({type: types.LOGIN_PIPELINE, payload: payload})
           closePipelineLoginModal(auth)
           dispatch(reset('pipelineLogin'))
         } else {
-            dispatch({type: types.LOGIN_PIPELINE_REJECTED, meta: {remote: true}, payload: response.data})
+            dispatch({type: types.LOGIN_PIPELINE_REJECTED, payload: response.data})
         }
 
       })
       .catch((err) => {
-        dispatch({type: types.LOGIN_PIPELINE_REJECTED, meta: {remote: true}, payload: err})
+        dispatch({type: types.LOGIN_PIPELINE_REJECTED, payload: err})
       })
   }
 }
@@ -44,7 +44,7 @@ export function pipelineLogout(pipeline) {
   }
   localStorage.removeItem(pipeline.api);
   return function(dispatch) {
-    dispatch({type: types.LOGOUT_PIPELINE, meta: {remote: true}, payload: payload})
+    dispatch({type: types.LOGOUT_PIPELINE, payload: payload})
   }
 }
 

@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import _ from 'lodash'
 import { Label, Form, FormGroup, Input, Collapse } from 'reactstrap';
 import FilterAppState from './FilterAppState'
+import { filterApps } from '../filters/searchFilters'
 
 class FilterAppStateList extends Component {
   constructor(props) {
@@ -24,13 +25,15 @@ class FilterAppStateList extends Component {
   }
 
   renderAppStates() {
-    let {filters} = this.props
+    let {filters, apps} = this.props
 
     return _.map(filters.availableAppStates, appState => {
+      let appCount = _.filter(apps, {state: appState}).length
       return (
         <FilterAppState key={appState}
           appState={appState}
           filters={filters}
+          appCount={appCount}
           toggleAppState={this.props.toggleAppState}
         />
       )
@@ -52,7 +55,7 @@ class FilterAppStateList extends Component {
   render() {
     return (
       <div>
-        <h4>App States&nbsp;&nbsp;<a href="#" onClick={this.toggle}>{this.renderOpenClose()}</a></h4>
+        <h4><a href="#" onClick={this.toggle}>App States&nbsp;&nbsp;{this.renderOpenClose()}</a></h4>
         <Collapse isOpen={this.state.collapse}>
           {this.renderAppStates()}
         </Collapse>
@@ -62,7 +65,10 @@ class FilterAppStateList extends Component {
 }
 
 function mapStateToProps(state) {
-  return { filters: state.filters };
+  return {
+    filters: state.filters,
+    apps: filterApps(state.apps.appList, state.filters)
+  };
 }
 
 export default connect(mapStateToProps, actions)(FilterAppStateList);

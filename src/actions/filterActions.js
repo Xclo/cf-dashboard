@@ -2,7 +2,7 @@ import * as types from './types.jsx';
 
 export function toggleFoundation (api) {
   return function(dispatch) {
-    dispatch({type: types.TOGGLE_FOUNDATION, meta: {remote: true}, payload: api});
+    dispatch({type: types.TOGGLE_FOUNDATION, payload: api});
   }
 }
 

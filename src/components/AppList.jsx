@@ -26,6 +26,16 @@ class AppList extends Component {
     );
   }
 
+  showLoading() {
+    if (this.props.fetchingApps) {
+      return (
+        <div className="loading">
+          <i className="fa fa-spinner fa-pulse fa-3x fa-fw " aria-hidden="true"></i> Loading...
+        </div>
+      )
+    }
+  }
+
   render() {
     const { apps } = this.props;
     var sortedApps = _.orderBy(apps, [app => app.name.toLowerCase(), status => app.status], ['asc', 'desc']);
@@ -35,6 +45,7 @@ class AppList extends Component {
           <LeftNav/>
         </Col>
         <Col md="6">
+          {this.showLoading()}
           <CardColumns>
             {apps.map(this.renderApp)}
           </CardColumns>
@@ -49,6 +60,7 @@ class AppList extends Component {
 
 function mapStateToProps(state) {
   return {
+    fetchingApps: state.apps.fetching,
     apps: filterApps(state.apps.appList, state.filters),
     foundations: state.foundations.all,
    };

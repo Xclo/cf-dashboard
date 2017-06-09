@@ -1,5 +1,5 @@
 import {
-  FETCH_APPS,
+  FETCHING_APPS,
   FETCH_APPS_REJECTED,
   FETCH_APPS_FULFILLED,
   SELECTED_APP,
@@ -15,7 +15,7 @@ export default function reducer(state={
   }, action) {
 
     switch (action.type) {
-      case FETCH_APPS: {
+      case FETCHING_APPS: {
         return {...state, fetching: true}
       }
 

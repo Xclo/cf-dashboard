@@ -14,3 +14,13 @@ body {
   margin-left: 0;
   margin-right: .5rem;
 }
+
+a:hover, a:active, a:visited {
+  text-decoration: none;
+}
+
+.loading {
+    margin: auto;
+    width: 50%;
+    margin-top: 100px;
+}
