@@ -41,16 +41,18 @@ class AppList extends Component {
     var sortedApps = _.orderBy(apps, [app => app.name.toLowerCase(), status => app.status], ['asc', 'desc']);
     return (
       <Row>
-        <Col md="3">
+        <Col md="2">
           <LeftNav/>
         </Col>
-        <Col md="6">
+        <Col md="8">
           {this.showLoading()}
+          {sortedApps.map(this.renderApp)}
+          {/*
           <CardColumns>
-            {apps.map(this.renderApp)}
-          </CardColumns>
+            {sortedApps.map(this.renderApp)}
+          </CardColumns> */}
         </Col>
-        <Col md="3">
+        <Col md="2">
           <RightPane/>
         </Col>
       </Row>

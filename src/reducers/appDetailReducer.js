@@ -12,7 +12,7 @@ export default function reducer(state={
     // console.log("In app Detail Reducers: " + action.type + " payload " + JSON.stringify(action.payload));
     switch (action.type) {
       case SELECT_APP: {
-        var appStatus = JSON.parse(action.payload.data.status);
+        var appStatus = action.payload.data.status;
 
         return {
           ...state,

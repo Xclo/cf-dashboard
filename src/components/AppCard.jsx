@@ -18,28 +18,42 @@ class AppCard extends Component {
   appStatus() {
     const {app} = this.props;
     if (app.state === 'Started') {
-      return 'started'
+      return 'card-float started'
     } else if (app.state === 'Stopped') {
-      return 'stopped'
+      return 'card-float stopped'
     }
   }
 
+  // render() {
+  //   const {app} = this.props;
+  //   return (
+  //     <Card className={this.appStatus()}>
+  //       <CardBlock>
+  //         <CardTitle>
+  //           <a href="#" onClick={this.handleSelectApp}>{app.name}</a>
+  //         </CardTitle>
+  //         <CardText>
+  //           Hi there
+  //         </CardText>
+  //         <div>{app.state}</div>
+  //         <div>{app.buildpack}</div>
+  //         <div><a href={app.route} target="_blank">{app.route}</a></div>
+  //         <div>{app.org.name} > {app.space.name}</div>
+  //       </CardBlock>
+  //     </Card>
+  //   );
+  // }
   render() {
     const {app} = this.props;
     return (
-      <Card className={this.appStatus()}>
-        <CardBlock>
-          <CardTitle>
-            <a href="#" onClick={this.handleSelectApp}>{app.name}</a>
-          </CardTitle>
-          <CardText>
-            Hi there
-          </CardText>
-          <div>{app.state}</div>
-          <div>{app.buildpack}</div>
-          <div><a href={app.route} target="_blank">{app.route}</a></div>
-        </CardBlock>
-      </Card>
+      <div className={this.appStatus()}>
+        <div className="app-name">
+          <a href="#" onClick={this.handleSelectApp}>{app.name}</a>
+        </div>
+        <div>{app.state}</div>
+        <div className=""><a href={app.route} target="_blank">View App</a></div>
+        <div className="space-name">{app.org.name} > {app.space.name}</div>
+      </div>
     );
   }
 }
