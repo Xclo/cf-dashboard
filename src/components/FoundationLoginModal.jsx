@@ -9,12 +9,12 @@ const FoundationLoginModal = props => {
 
   return (
     <Modal isOpen={isOpen} className={props.className}>
-      <ModalHeader>Login - {foundation.api}</ModalHeader>
+      <ModalHeader>Login - {foundation.name}</ModalHeader>
       <Form onSubmit={handleSubmit}>
       <ModalBody>
           <FormGroup>
             <Label for="exampleEmail">Email</Label>
-            <Field type="email" component="input" name="username" className="form-control" id="email" placeholder="Email" />
+            <Field type="text" component="input" name="username" className="form-control" id="email" placeholder="Email" />
           </FormGroup>
           <FormGroup>
             <Label for="examplePassword">Password</Label>

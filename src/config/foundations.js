@@ -4,8 +4,12 @@ const foundations = [
     "api": "https://api.run.pivotal.io"
   },
   {
-    "name": "Brian's Install",
+    "name": "BB",
     "api": "https://api.run.pcf.cloud"
+  },
+  {
+    "name": "HaaS",
+    "api": "https://api.cfapps.haas-46.pez.pivotal.io"
   }
 ]
 

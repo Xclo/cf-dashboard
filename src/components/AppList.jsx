@@ -44,7 +44,7 @@ class AppList extends Component {
         <Col md="2">
           <LeftNav/>
         </Col>
-        <Col md="8">
+        <Col md="7">
           {this.showLoading()}
           {sortedApps.map(this.renderApp)}
           {/*
@@ -52,7 +52,7 @@ class AppList extends Component {
             {sortedApps.map(this.renderApp)}
           </CardColumns> */}
         </Col>
-        <Col md="2">
+        <Col md="3">
           <RightPane/>
         </Col>
       </Row>
