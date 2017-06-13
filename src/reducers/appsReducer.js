@@ -16,7 +16,11 @@ export default function reducer(state={
 
     switch (action.type) {
       case FETCHING_APPS: {
-        return {...state, fetching: true}
+        return {
+          ...state,
+          fetching: true,
+          appList: []
+        }
       }
 
       case FETCH_APPS_REJECTED: {
