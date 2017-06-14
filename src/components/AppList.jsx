@@ -16,10 +16,6 @@ class AppList extends Component {
     this.renderApp = this.renderApp.bind(this);
   }
 
-  componentWillMount() {
-    this.props.fetchApps(this.props.foundations)
-  }
-
   renderApp(app) {
     return (
       <AppCard key={app.metadata.guid} app={app} selectApp={this.props.selectApp}/>
@@ -37,25 +33,19 @@ class AppList extends Component {
   }
 
   render() {
-    const { apps } = this.props;
-    var sortedApps = _.orderBy(apps, [app => app.name.toLowerCase(), status => app.status], ['asc', 'desc']);
+    const { apps, filters } = this.props;
+    let sortedApps = [];
+    if (filters.sortBy === 'name-asc') {
+      sortedApps = _.orderBy(apps, [app => app.name.toLowerCase(), status => app.status], ['asc', 'desc']);
+    } else if (filters.sortBy === 'name-desc') {
+      sortedApps = _.orderBy(apps, [app => app.name.toLowerCase(), status => app.status], ['desc', 'desc']);
+    }
+
     return (
-      <Row>
-        <Col md="2">
-          <LeftNav/>
-        </Col>
-        <Col md="7">
-          {this.showLoading()}
-          {sortedApps.map(this.renderApp)}
-          {/*
-          <CardColumns>
-            {sortedApps.map(this.renderApp)}
-          </CardColumns> */}
-        </Col>
-        <Col md="3">
-          <RightPane/>
-        </Col>
-      </Row>
+      <div>
+        {this.showLoading()}
+        {sortedApps.map(this.renderApp)}
+      </div>
     )
   }
 }
@@ -64,6 +54,7 @@ function mapStateToProps(state) {
   return {
     fetchingApps: state.apps.fetching,
     apps: filterApps(state.apps.appList, state.filters),
+    filters: state.filters,
     foundations: state.foundations.all,
    };
 }

@@ -14,6 +14,7 @@ class RightPane extends Component {
 
   render() {
     if (this.props.app) {
+      console.log(this.props.app)
       return (
         <div>
           <br/>
@@ -21,6 +22,9 @@ class RightPane extends Component {
           <br/>
           <div><h4>{this.props.app.name}</h4></div>
           <div>Status: {this.props.app.status.status}</div>
+          <div># of instances</div>
+          <div>bound services</div>
+          <div>last updated</div>
         </div>
 
       )

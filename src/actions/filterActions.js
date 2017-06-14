@@ -17,3 +17,9 @@ export function toggleAppState (state) {
     dispatch({type: types.TOGGLE_APP_STATE, payload: state});
   }
 }
+
+export function updateSort (sort) {
+  return function(dispatch) {
+    dispatch({type: types.SORT_UPDATED, payload: sort});
+  }
+}

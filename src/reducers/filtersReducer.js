@@ -6,7 +6,8 @@ import {
   FETCH_FOUNDATIONS_FULFILLED,
   TOGGLE_BUILDPACK,
   TOGGLE_APP_STATE,
-  FETCH_APPS_FULFILLED
+  FETCH_APPS_FULFILLED,
+  SORT_UPDATED
 } from '../actions/types'
 
 export default function reducer(state = {
@@ -16,7 +17,8 @@ export default function reducer(state = {
     selectedBuildpacks: [],
     availableBuildpacks: [],
     selectedAppStates: [],
-    availableAppStates: []
+    availableAppStates: [],
+    sortBy: 'name-asc'
   }, action) {
     switch (action.type) {
       case FETCH_FOUNDATIONS_FULFILLED: {
@@ -93,6 +95,13 @@ export default function reducer(state = {
         return {
           ...state,
           selectedAppStates: appStates
+        }
+      }
+
+      case SORT_UPDATED: {
+        return {
+          ...state,
+          sortBy: action.payload
         }
       }
 

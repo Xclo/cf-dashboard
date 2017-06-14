@@ -1,10 +1,10 @@
 const foundations = [
   {
-    "name": "PWS",
+    "name": "West PCF",
     "api": "https://api.run.pivotal.io"
   },
   {
-    "name": "BB",
+    "name": "Midwest PCF",
     "api": "https://api.run.pcf.cloud"
   },
   {
