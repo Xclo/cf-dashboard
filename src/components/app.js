@@ -5,7 +5,8 @@ import Home from './Home'
 import Apps from './Apps'
 import Navigation from './Navigation'
 import Foundations from './Foundations'
-import PipelineList from './PipelineList'
+import FoundationList from './FoundationList'
+import CIServers from './CIServers'
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 
@@ -29,7 +30,7 @@ class App extends Component {
           <Route exact path="/" component={Home}/>
           <Route exact path="/apps" component={Apps}/>
           <Route exact path="/foundations" component={Foundations}/>
-          <Route exact path="/pipelines" component={PipelineList}/>
+          <Route exact path="/pipelines" component={CIServers}/>
         </Container>
       </Router>
     );

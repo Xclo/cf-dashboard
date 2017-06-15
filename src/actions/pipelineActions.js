@@ -1,34 +1,33 @@
 import * as types from './types.jsx';
 import axios from 'axios';
 import {reset} from 'redux-form'
-import pipelines from '../config/pipelines'
+import ciservers from '../config/ciservers'
 import moment from 'moment'
 
 
-export function fetchPipelines () {
-  console.log("Pipelines " + pipelines)
+export function fetchCIServers () {
+  console.log("CIServers " + ciservers)
   return function(dispatch) {
-    dispatch({type: types.FETCH_PIPELINES_FULFILLED, payload: pipelines})
+    dispatch({type: types.FETCH_CISERVERS_FULFILLED, payload: ciservers})
   }
 }
 
-export function pipelineLogin(auth) {
+export function ciserverLogin(auth) {
   return function(dispatch) {
-    axios.post('http://localhost:5000/api/auth/login', {username: auth.username, password: auth.password, api: auth.api})
+
+    axios.post('http://localhost:5001/api/auth/login', {username: auth.username, password: auth.password, api: auth.api, team: auth.team})
       .then((response) => {
-        if (response.data.token_type && response.data.access_token && response.data.refresh_token) {
+        if (response.data.type && response.data.value) {
           const payload = {
             "api": auth.api,
-            "tokenType": response.data.token_type,
-            "accessToken": response.data.access_token,
-            "refreshToken": response.data.refresh_token,
-            "expires": moment().add(response.data.expires_in, 'seconds').toISOString()
+            "tokenType": response.data.type,
+            "accessToken": response.data.value,
           }
-          dispatch({type: types.LOGIN_PIPELINE, payload: payload})
-          closePipelineLoginModal(auth)
-          dispatch(reset('pipelineLogin'))
+          dispatch({type: types.LOGIN_CISERVER, payload: payload})
+          closeCIServerLoginModal(auth)
+          dispatch(reset('ciserverLogin'))
         } else {
-            dispatch({type: types.LOGIN_PIPELINE_REJECTED, payload: response.data})
+            dispatch({type: types.LOGIN_CISERVER_REJECTED, payload: response.data})
         }
 
       })
@@ -38,30 +37,71 @@ export function pipelineLogin(auth) {
   }
 }
 
-export function pipelineLogout(pipeline) {
-  const payload = {
-    "api": pipeline.api
-  }
-  localStorage.removeItem(pipeline.api);
+
+export function loadPipelines (ciserver) {
   return function(dispatch) {
-    dispatch({type: types.LOGOUT_PIPELINE, payload: payload})
+    let pipelinePromises = [];
+    dispatch({type: types.LOADING_PIPELINES})
+      if (ciserver.auth) {
+        let auth = localStorage.getItem(ciserver.api)
+        auth = JSON.parse(auth);
+
+        let request = {
+          url: 'http://localhost:5001/api/pipelines',
+          method: 'get',
+          headers: {
+            api: ciserver.api,
+            authorization: `${auth.tokenType} ${auth.accessToken}`,
+            team: ciserver.team
+          }
+        }
+        pipelinePromises.push(axios(request))
+      }
+
+
+    Promise.all(pipelinePromises).then(responses => {
+      let pipelines = [];
+      responses.forEach(response => {
+        response.data.forEach(pipeline => {
+          pipelines.push(pipeline)
+        })
+      });
+      dispatch({type: types.LOAD_PIPELINES_FULFILLED, payload: pipelines})
+    }).catch(error => {
+      console.log(error);
+      dispatch({type: types.LOAD_PIPELINES_REJECTED, payload: error})
+    });
   }
 }
 
-export function openPipelineLoginModal(pipeline) {
+
+
+
+
+export function ciserverLogout(ciserver) {
+  const payload = {
+    "api": ciserver.api
+  }
+  localStorage.removeItem(ciserver.api);
+  return function(dispatch) {
+    dispatch({type: types.LOGOUT_CISERVER, payload: payload})
+  }
+}
+
+export function openCIServerLoginModal(ciserver) {
   const payload = {
     "open": true,
-    "api": pipeline.api
+    "api": ciserver.api
   }
   return function(dispatch) {
-    dispatch({type: types.PIPELINE_LOGIN_MODAL_OPEN_STATE, payload: payload})
+    dispatch({type: types.CISERVER_LOGIN_MODAL_OPEN_STATE, payload: payload})
   }
 }
 
-export function closePipelineLoginModal(pipeline) {
+export function closeCIServerLoginModal(ciserver) {
   const payload = {
     "open": false,
-    "api": pipeline.api
+    "api": ciserver.api
   }
   return function(dispatch) {
     dispatch({type: types.PIPELINE_LOGIN_MODAL_OPEN_STATE, payload: payload})

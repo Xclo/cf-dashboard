@@ -4,12 +4,12 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, La
 import { Field, reduxForm } from 'redux-form'
 
 
-const PipelineLoginModal = props => {
-  const {isOpen, pipeline, pristine, reset, submitting, handleSubmit } = props;
+const CIServerLoginModal = props => {
+  const {isOpen, ciserver, pristine, reset, submitting, handleSubmit } = props;
 
   return (
     <Modal isOpen={isOpen} className={props.className}>
-      <ModalHeader>Login - {pipeline.api}</ModalHeader>
+      <ModalHeader>Login - {ciserver.api}</ModalHeader>
       <Form onSubmit={handleSubmit}>
       <ModalBody>
           <FormGroup>
@@ -35,5 +35,5 @@ const PipelineLoginModal = props => {
 }
 
 export default reduxForm({
-  form: 'pipelineLogin'
-})(PipelineLoginModal);
+  form: 'ciserverLogin'
+})(CIServerLoginModal);

@@ -1,4 +1,4 @@
-const pipelines = [
+const ciservers = [
   {
     "name": "AWS",
     "api": "https://concourse-c0.gcp.rjainpcf.com",
@@ -11,4 +11,4 @@ const pipelines = [
   }
 ]
 
-module.exports = pipelines;
+module.exports = ciservers;
