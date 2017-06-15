@@ -8,14 +8,20 @@ import LeftNav from './LeftNav'
 import RightPane from './RightPane'
 import AppList from './AppList'
 import SortBy from './SortBy'
+import RefreshApps from './RefreshApps'
 
 class Apps extends Component {
 
   constructor(props) {
     super(props)
+    this.refreshApps = this.refreshApps.bind(this);
   }
 
   componentWillMount() {
+    this.props.fetchApps(this.props.foundations)
+  }
+
+  refreshApps() {
     this.props.fetchApps(this.props.foundations)
   }
 
@@ -27,6 +33,7 @@ class Apps extends Component {
         </Col>
         <Col md="7">
           <SortBy updateSort={this.props.updateSort}/>
+          <RefreshApps refreshApps={this.refreshApps}/>
           <AppList/>
         </Col>
         <Col md="3">
