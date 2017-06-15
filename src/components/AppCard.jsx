@@ -30,7 +30,6 @@ class AppCard extends Component {
         <div className="app-name">
           <a href="#" onClick={this.handleSelectApp}>{app.name}</a>
         </div>
-        <div>{app.state}</div>
         <div className=""><a href={app.route} target="_blank">View App</a></div>
         <div className="space-name">{app.foundationName} > {app.org.name} > {app.space.name}</div>
       </div>

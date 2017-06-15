@@ -14,7 +14,7 @@ class SortBy extends Component {
 
   render() {
     return(
-      <div>
+      <div className="d-inline-block">
         <select className="custom-select sortBy" onChange={this.updateSort}>
           <option value="name-asc">Name Ascending</option>
           <option value="name-desc">Name Descending</option>

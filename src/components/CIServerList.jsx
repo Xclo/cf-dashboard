@@ -20,7 +20,7 @@ class CIServerList extends Component {
 
   renderCIServerList() {
     return _.map(this.props.ciservers, ciserver => {
-      console.log(ciserver.name);
+      // console.log(ciserver.name);
 
       return (
         <CIServer key={ciserver.name}

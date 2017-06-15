@@ -27,7 +27,7 @@ export default function jwt({ dispatch, getState }) {
 }
 
 function foundationRefreshToken(dispatch, auth) {
-  let refreshPromise = axios.post('http://localhost:5000/api/auth/refreshToken', {refresh_token: auth.refreshToken, api: auth.api})
+  let refreshPromise = axios.post('https://cf-radiator-dashboard.apps.pcf.cloud/api/auth/refreshToken', {refresh_token: auth.refreshToken, api: auth.api})
     .then((response) => {
       dispatch({type: DONE_REFRESHING_FOUNDATION_TOKEN, payload: {api: auth.api}})
       if (response.data.token_type && response.data.access_token && response.data.refresh_token) {

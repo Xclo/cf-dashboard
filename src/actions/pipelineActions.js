@@ -6,7 +6,7 @@ import moment from 'moment'
 
 
 export function fetchCIServers () {
-  console.log("CIServers " , ciservers)
+  // console.log("CIServers " , ciservers)
   return function(dispatch) {
     dispatch({type: types.FETCH_CISERVERS_FULFILLED, payload: ciservers})
   }
@@ -14,7 +14,6 @@ export function fetchCIServers () {
 
 export function ciserverLogin(auth) {
   return function(dispatch) {
-
     axios.post('http://localhost:5001/api/auth/login', {username: auth.username, password: auth.password, api: auth.api, team: auth.team})
       .then((response) => {
         if (response.data.type && response.data.value) {
