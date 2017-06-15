@@ -19,7 +19,7 @@ class Pipelines extends Component {
     var commentNodes = '';
 
     commentNodes = _.map(this.props.pipelines, pipeline => {
-      console.log("pipeline", pipeline)
+      // console.log("pipeline", pipeline)
       return (
         <Pipeline key={pipeline.api} name={pipeline.name} url={pipeline.url} paused={pipeline.paused} jobs={pipeline.jobs} />
       );
