@@ -28,7 +28,7 @@ class RightPane extends Component {
           <div><h4>{this.props.app.name}</h4></div>
           <div>Status: {this.props.app.status.status}</div>
           <div>{this.props.app.details.instances}/{this.props.app.details.running_instances} instances running</div>
-          <div>{this.props.app.details.memory}GB memory</div>
+          <div>{this.props.app.details.memory}MB memory</div>
           <div>Services</div>
           <ul>
             {this.props.app.details.bound_services.map(this.renderService)}
