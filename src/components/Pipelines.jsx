@@ -36,7 +36,7 @@ class Pipelines extends Component {
 
 
   render() {
-    console.log("In render method of pipelines.jsx")
+    // console.log("In render method of pipelines.jsx")
     return (
       this.renderPipelines()
     )

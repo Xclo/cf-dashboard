@@ -14,7 +14,7 @@ class Pipeline extends Component {
 
     var jobNodes;
     // Generate vertical stripes, representing job statuses insite the current pipeline
-    console.log("jobs", this.props.jobs)
+    // console.log("jobs", this.props.jobs)
     var width = 250 / this.props.jobs.length;
     jobNodes = this.props.jobs.map(function(job) {
 
@@ -22,7 +22,7 @@ class Pipeline extends Component {
         <div className={ 'pipeline-job ' + job.status } style={{width: width}} />
       );
     });
-    console.log("jobnodes", jobNodes)
+    // console.log("jobnodes", jobNodes)
 
     return (
       <a key={ 'link-' + this.props.name } href={this.props.url} className="pipeline-link" target="_blank">

@@ -73,7 +73,7 @@ export function loadFoundationInfo(foundation) {
 
   return dispatch => {
     let request = {
-      url: 'http://localhost:5000/api/foundationInfo',
+      url: 'https://cf-radiator-server.apps.pcf.cloud/api/foundationInfo',
       method: 'get',
       headers: {
         api: foundation.api
