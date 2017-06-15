@@ -6,7 +6,7 @@ import moment from 'moment'
 
 
 export function fetchPipelines () {
-  console.log("Pipelines " + pipelines)
+  console.log("Pipelines ", pipelines)
   return function(dispatch) {
     dispatch({type: types.FETCH_PIPELINES_FULFILLED, payload: pipelines})
   }

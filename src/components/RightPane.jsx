@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Card, Button, CardImg, CardTitle, CardText, CardDeck,
- CardSubtitle, CardBlock } from 'reactstrap';
- import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 
 class RightPane extends Component {
 
@@ -24,7 +20,6 @@ class RightPane extends Component {
 
   render() {
     if (this.props.app) {
-      console.log(this.props.app)
       return (
         <div>
           <br/>
@@ -40,14 +35,9 @@ class RightPane extends Component {
           </ul>
           <div>last updated: {this.props.app.details.package_updated_at}</div>
         </div>
-
       )
     } else {
-      return (
-        <div>
-
-        </div>
-      )
+      return null
     }
   }
 }

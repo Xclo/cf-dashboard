@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
-import Foundation from './Foundation'
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import _ from 'lodash'
 
 class FoundationDetails extends Component {
   constructor(props) {

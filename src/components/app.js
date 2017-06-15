@@ -8,7 +8,6 @@ import Foundations from './Foundations'
 import PipelineList from './PipelineList'
 import * as actions from '../actions';
 import { connect } from 'react-redux';
-
 import { Container } from 'reactstrap';
 
 class App extends Component {

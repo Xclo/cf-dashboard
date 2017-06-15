@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import _ from 'lodash'
-import { Label, Form, FormGroup, Input, Collapse } from 'reactstrap';
+import { Collapse } from 'reactstrap';
 import FilterAppState from './FilterAppState'
 import { filterApps } from '../filters/searchFilters'
 
