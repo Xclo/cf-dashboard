@@ -14,7 +14,7 @@ export function fetchFoundations () {
 
 export function foundationLogin(auth) {
   return function(dispatch) {
-    axios.post('http://localhost:5000/api/auth/login', {username: auth.username, password: auth.password, api: auth.api})
+    axios.post('https://cf-radiator-server.apps.pcf.cloud/api/auth/login', {username: auth.username, password: auth.password, api: auth.api})
       .then((response) => {
         if (response.data.token_type && response.data.access_token && response.data.refresh_token) {
           const payload = {
@@ -65,5 +65,22 @@ export function closeFoundationLoginModal(foundation) {
   }
   return function(dispatch) {
     dispatch({type: types.FOUNDATION_LOGIN_MODAL_OPEN_STATE, payload: payload})
+  }
+}
+
+export function loadFoundationInfo(foundation) {
+  let infoUrl = `${foundation.api}/v2/info`
+
+  return dispatch => {
+    let request = {
+      url: 'http://localhost:5000/api/foundationInfo',
+      method: 'get',
+      headers: {
+        api: foundation.api
+      }
+    }
+    axios(request).then((response) => {
+      dispatch({type: types.LOAD_FOUNDATION_INFO, payload: {api: foundation.api, info: response.data}});
+    })
   }
 }

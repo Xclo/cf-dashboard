@@ -25,6 +25,7 @@ class FoundationList extends Component {
           logout={this.props.foundationLogout}
           openModal={this.props.openFoundationLoginModal}
           closeModal={this.props.closeFoundationLoginModal}
+          loadFoundationInfo={this.props.loadFoundationInfo}
         />
       )
     })

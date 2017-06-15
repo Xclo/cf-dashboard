@@ -52,7 +52,7 @@ class AppCard extends Component {
         </div>
         <div>{app.state}</div>
         <div className=""><a href={app.route} target="_blank">View App</a></div>
-        <div className="space-name">{app.org.name} > {app.space.name}</div>
+        <div className="space-name">{app.foundationName} > {app.org.name} > {app.space.name}</div>
       </div>
     );
   }

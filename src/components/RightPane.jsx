@@ -10,6 +10,16 @@ class RightPane extends Component {
 
   constructor(props) {
     super(props)
+    this.renderService = this.renderService.bind(this);
+  }
+
+  renderService(service) {
+
+    return (
+      <li key={service.name}>
+        {service.name} - {service.service}/{service.plan}
+      </li>
+    )
   }
 
   render() {
@@ -22,9 +32,13 @@ class RightPane extends Component {
           <br/>
           <div><h4>{this.props.app.name}</h4></div>
           <div>Status: {this.props.app.status.status}</div>
-          <div># of instances</div>
-          <div>bound services</div>
-          <div>last updated</div>
+          <div>{this.props.app.details.instances}/{this.props.app.details.running_instances} instances running</div>
+          <div>{this.props.app.details.memory}GB memory</div>
+          <div>Services</div>
+          <ul>
+            {this.props.app.details.bound_services.map(this.renderService)}
+          </ul>
+          <div>last updated: {this.props.app.details.package_updated_at}</div>
         </div>
 
       )

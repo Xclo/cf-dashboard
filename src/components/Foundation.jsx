@@ -10,6 +10,7 @@ class Foundation extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.loadFoundationInfo = this.loadFoundationInfo.bind(this);
   }
   handleLogin(values) {
     let auth = {
@@ -18,6 +19,11 @@ class Foundation extends Component {
       password: values.password
     }
     this.props.login(auth)
+  }
+
+  loadFoundationInfo(e) {
+    e.preventDefault();
+    this.props.loadFoundationInfo(this.props.foundation);
   }
 
   handleLogout(e) {
@@ -50,7 +56,7 @@ class Foundation extends Component {
     const {foundation} = this.props;
     return(
       <div>
-        {foundation.name}{this.authLinks()}
+        <a href="#" onClick={this.loadFoundationInfo}>{foundation.name}</a>{this.authLinks()}
         <FoundationLoginModal foundation={foundation} onSubmit={this.handleLogin} closeModal={this.closeModal} isOpen={foundation.loginModalOpen}/>
       </div>
     )

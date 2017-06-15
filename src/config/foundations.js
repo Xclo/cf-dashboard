@@ -8,8 +8,16 @@ const foundations = [
     "api": "https://api.run.pcf.cloud"
   },
   {
-    "name": "HaaS",
-    "api": "https://api.cfapps.haas-46.pez.pivotal.io"
+    "name": "HaaS 46",
+    "api": "https://api.run.haas-46.pez.pivotal.io"
+  },
+  {
+    "name": "HaaS 74",
+    "api": "https://api.run.haas-74.pez.pivotal.io"
+  },
+  {
+    "name": "HaaS 107",
+    "api": "https://api.run.haas-107.pez.pivotal.io"
   }
 ]
 

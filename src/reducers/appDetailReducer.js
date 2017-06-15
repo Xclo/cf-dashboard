@@ -19,13 +19,13 @@ export default function reducer(state={
         }
       }
       case SELECT_APP: {
-        var appStatus = action.payload.data.status;
+        var appStatus = action.payload.status;
 
         return {
           ...state,
           app: {
-            details: action.payload, // to be deleted once we clean this up
-            name: action.payload.data.app.name,
+            details: action.payload.app, // to be deleted once we clean this up
+            name: action.payload.app.name,
             status: appStatus
           }
         }

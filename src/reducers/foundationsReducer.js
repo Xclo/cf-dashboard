@@ -10,7 +10,8 @@ import {
   TOGGLE_FOUNDATION,
   DONE_REFRESHING_FOUNDATION_TOKEN,
   REFRESHING_FOUNDATION_TOKEN,
-  REFRESHED_FOUNDATION_TOKEN
+  REFRESHED_FOUNDATION_TOKEN,
+  LOAD_FOUNDATION_INFO
 } from '../actions/types'
 
 export default function reducer(state = {
@@ -109,6 +110,13 @@ export default function reducer(state = {
         return {
           ...state,
           all: foundations
+        }
+      }
+
+      case LOAD_FOUNDATION_INFO: {
+        return {
+          ...state,
+          selectedFoundation: action.payload
         }
       }
     }

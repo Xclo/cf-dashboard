@@ -1,5 +1,6 @@
 import * as types from './types.jsx';
 import axios from 'axios';
+import Promise from 'bluebird'
 
 export function dispatchClientAction (action) {
   console.log("dispatchClientAction::" + action);
@@ -39,7 +40,7 @@ export function selectApp(app) {
   auth = JSON.parse(auth);
 
   let request = {
-    url: 'http://localhost:5000/api/apps/'+app.metadata.guid + '',
+    url: 'https://cf-radiator-server.apps.pcf.cloud/api/apps/'+app.metadata.guid + '',
     method: 'get',
     headers: {
       api: app.api,
@@ -50,7 +51,7 @@ export function selectApp(app) {
   return function(dispatch) {
     axios(request)
       .then((response) => {
-        dispatch({type: types.SELECT_APP, payload: response})
+        dispatch({type: types.SELECT_APP, payload: response.data})
       })
       .catch((err) => {
         dispatch({type: types.SELECT_APP_FAILED, payload: err})
@@ -69,7 +70,7 @@ export function fetchApps (foundations) {
         auth = JSON.parse(auth);
 
         let request = {
-          url: 'http://localhost:5000/api/apps',
+          url: 'https://cf-radiator-server.apps.pcf.cloud/api/apps',
           method: 'get',
           headers: {
             api: foundation.api,
@@ -90,6 +91,9 @@ export function fetchApps (foundations) {
           }
           app.state = app.state.charAt(0).toUpperCase() + app.state.slice(1).toLowerCase(); //format the state of the app
           apps.push(app)
+
+          let foundation = _.find(foundations, {api: app.api})
+          app.foundationName = foundation.name
         })
       });
       dispatch({type: types.FETCH_APPS_FULFILLED, payload: apps})
@@ -103,7 +107,7 @@ export function fetchApps (foundations) {
 export function fetchAppDetail (id) {
   return function(dispatch) {
     console.log("In fetchAppDetail" + id);
-    axios.get('http://localhost:5000/api/app/'+id)
+    axios.get('https://cf-radiator-server.apps.pcf.cloud/api/app/'+id)
       .then((response) => {
         dispatch({type: types.FETCH_APP_DETAILS_FULFILLED, payload: response.data})
       })
