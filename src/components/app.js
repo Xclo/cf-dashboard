@@ -9,7 +9,6 @@ import FoundationList from './FoundationList'
 import CIServers from './CIServers'
 import * as actions from '../actions';
 import { connect } from 'react-redux';
-
 import { Container } from 'reactstrap';
 
 class App extends Component {

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import AppCard from './AppCard'
-import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { selectAppList, fetchAppsIfNeeded } from '../actions'
-import { CardColumns, Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 
 import LeftNav from './LeftNav'
 import RightPane from './RightPane'

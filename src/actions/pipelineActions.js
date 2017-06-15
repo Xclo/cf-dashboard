@@ -6,7 +6,7 @@ import moment from 'moment'
 
 
 export function fetchCIServers () {
-  console.log("CIServers " + ciservers)
+  console.log("CIServers " , ciservers)
   return function(dispatch) {
     dispatch({type: types.FETCH_CISERVERS_FULFILLED, payload: ciservers})
   }

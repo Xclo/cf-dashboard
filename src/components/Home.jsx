@@ -1,11 +1,7 @@
 import React from 'react'
-import AppList from './AppList'
 
-const Home = ({ match }) => (
+export default ({ match }) => (
   <div>
     <h2>Home</h2>
-  </div>
-  
+  </div>  
 )
-
-export default Home
