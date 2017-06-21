@@ -1,18 +1,6 @@
 import _ from 'lodash'
 
-import {
-  FETCH_FOUNDATIONS,
-  FETCH_FOUNDATIONS_REJECTED,
-  FETCH_FOUNDATIONS_FULFILLED,
-  LOGIN_FOUNDATION,
-  LOGOUT_FOUNDATION,
-  FOUNDATION_LOGIN_MODAL_OPEN_STATE,
-  TOGGLE_FOUNDATION,
-  DONE_REFRESHING_FOUNDATION_TOKEN,
-  REFRESHING_FOUNDATION_TOKEN,
-  REFRESHED_FOUNDATION_TOKEN,
-  LOAD_FOUNDATION_INFO
-} from '../actions/types'
+import * as types from '../actions/types';
 
 export default function reducer(state = {
     all: [],
@@ -22,13 +10,13 @@ export default function reducer(state = {
   }, action) {
 
     switch (action.type) {
-      case FETCH_FOUNDATIONS: {
+      case types.FETCH_FOUNDATIONS: {
         return {...state, fetching: true}
       }
-      case FETCH_FOUNDATIONS_REJECTED: {
+      case types.FETCH_FOUNDATIONS_REJECTED: {
         return {...state, fetching: false, error: action.payload}
       }
-      case FETCH_FOUNDATIONS_FULFILLED: {
+      case types.FETCH_FOUNDATIONS_FULFILLED: {
         let foundations = action.payload;
         foundations.forEach((foundation) => {
           foundation.selected = true;
@@ -45,7 +33,7 @@ export default function reducer(state = {
           all: _.mapKeys(foundations, 'api')
         }
       }
-      case LOGIN_FOUNDATION: {
+      case types.LOGIN_FOUNDATION: {
         let foundations = {...state.all}
         let auth = action.payload;
         foundations[action.payload.api].auth = auth
@@ -56,7 +44,7 @@ export default function reducer(state = {
           all: foundations
         }
       }
-      case LOGOUT_FOUNDATION: {
+      case types.LOGOUT_FOUNDATION: {
         let foundations = {...state.all}
         foundations[action.payload.api].auth = undefined
         localStorage.removeItem(action.payload.api);
@@ -65,7 +53,7 @@ export default function reducer(state = {
           all: foundations
         }
       }
-      case FOUNDATION_LOGIN_MODAL_OPEN_STATE: {
+      case types.FOUNDATION_LOGIN_MODAL_OPEN_STATE: {
         let foundations = {...state.all}
         foundations[action.payload.api].loginModalOpen = action.payload.open
         return {
@@ -74,7 +62,7 @@ export default function reducer(state = {
         }
       }
 
-      case TOGGLE_FOUNDATION: {
+      case types.TOGGLE_FOUNDATION: {
         let foundations = {...state.all}
         let foundation = foundations[action.payload];
         foundation.selected = !foundation.selected
@@ -84,7 +72,7 @@ export default function reducer(state = {
         }
       }
 
-      case DONE_REFRESHING_FOUNDATION_TOKEN: {
+      case types.DONE_REFRESHING_FOUNDATION_TOKEN: {
         let foundations = {...state.all}
         foundations[action.payload.api].refreshingToken = undefined
         return {
@@ -93,7 +81,7 @@ export default function reducer(state = {
         }
       }
 
-      case REFRESHING_FOUNDATION_TOKEN: {
+      case types.REFRESHING_FOUNDATION_TOKEN: {
         let foundations = {...state.all}
         foundations[action.payload.api].refreshingToken = action.payload
         return {
@@ -102,7 +90,7 @@ export default function reducer(state = {
         }
       }
 
-      case REFRESHED_FOUNDATION_TOKEN: {
+      case types.REFRESHED_FOUNDATION_TOKEN: {
         let foundations = {...state.all}
         let auth = action.payload;
         foundations[action.payload.api].auth = auth
@@ -113,7 +101,7 @@ export default function reducer(state = {
         }
       }
 
-      case LOAD_FOUNDATION_INFO: {
+      case types.LOAD_FOUNDATION_INFO: {
         return {
           ...state,
           selectedFoundation: action.payload

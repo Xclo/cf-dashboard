@@ -1,4 +1,4 @@
-import * as types from './types.jsx';
+import * as types from './types';
 
 export function toggleFoundation (api) {
   return function(dispatch) {

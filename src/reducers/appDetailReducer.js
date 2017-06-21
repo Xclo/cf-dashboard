@@ -1,7 +1,4 @@
-import {
-  SELECT_APP,
-  FETCHING_APPS
-} from '../actions/types'
+import * as types from '../actions/types'
 
 export default function reducer(state={
     app: undefined,
@@ -12,13 +9,13 @@ export default function reducer(state={
 
     // console.log("In app Detail Reducers: " + action.type + " payload " + JSON.stringify(action.payload));
     switch (action.type) {
-      case FETCHING_APPS: {
+      case types.FETCHING_APPS: {
         return {
           ...state,
           app: undefined
         }
       }
-      case SELECT_APP: {
+      case types.SELECT_APP: {
         var appStatus = action.payload.status;
 
         return {

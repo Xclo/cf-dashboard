@@ -1,10 +1,4 @@
-import {
-  FETCHING_APPS,
-  FETCH_APPS_REJECTED,
-  FETCH_APPS_FULFILLED,
-  SELECTED_APP,
-  LOGOUT_FOUNDATION
-} from '../actions/types'
+import * as types from '../actions/types'
 
 export default function reducer(state={
     appList: [],
@@ -15,7 +9,7 @@ export default function reducer(state={
   }, action) {
 
     switch (action.type) {
-      case FETCHING_APPS: {
+      case types.FETCHING_APPS: {
         return {
           ...state,
           fetching: true,
@@ -23,7 +17,7 @@ export default function reducer(state={
         }
       }
 
-      case FETCH_APPS_REJECTED: {
+      case types.FETCH_APPS_REJECTED: {
         let apps = [...state.appList]
         apps = _.remove(apps, function(app) {
           return app.api === action.payload.api;
@@ -37,17 +31,34 @@ export default function reducer(state={
         }
       }
 
-      case FETCH_APPS_FULFILLED: {
+      case types.FETCH_APPS_FULFILLED: {
+        let apps = [...state.appList]
+        apps = _.remove(apps, function(app) {
+            return app.api === action.payload.api;
+        });
+        apps = _.concat(apps, action.payload.apps)
+
         return {
           ...state,
           fetching: false,
           fetched: true,
-          appList: action.payload
-
+          appList: apps
         }
       }
 
-      case LOGOUT_FOUNDATION: {
+      case types.FETCH_APP_FULFILLED: {
+        let apps = [...state.appList]
+        apps.push(action.payload.app)
+
+        return {
+          ...state,
+          fetching: false,
+          fetched: true,
+          appList: [...state.appList, action.payload]
+        }
+      }
+
+      case types.LOGOUT_FOUNDATION: {
         let apps = [...state.appList]
         apps = _.remove(apps, function(app) {
             return app.api === action.payload.api;

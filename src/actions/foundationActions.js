@@ -1,4 +1,4 @@
-import * as types from './types.jsx';
+import * as types from './types';
 import axios from 'axios';
 import {reset} from 'redux-form'
 import foundations from '../config/foundations'

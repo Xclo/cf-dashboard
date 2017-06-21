@@ -1,4 +1,4 @@
-import * as types from './types.jsx';
+import * as types from './types';
 import axios from 'axios';
 import Promise from 'bluebird'
 import config from '../config'
@@ -49,7 +49,7 @@ export function selectApp(app) {
     }
   }
 
-  return function(dispatch) {
+  return dispatch => {
     axios(request)
       .then((response) => {
         dispatch({type: types.SELECT_APP, payload: response.data})
@@ -61,7 +61,7 @@ export function selectApp(app) {
 }
 
 export function fetchApps (foundations) {
-  return function(dispatch) {
+  return dispatch => {
     let foundationPromises = [];
     dispatch({type: types.FETCHING_APPS})
 
@@ -78,35 +78,29 @@ export function fetchApps (foundations) {
             authorization: `${auth.tokenType} ${auth.accessToken}`
           }
         }
-        foundationPromises.push(axios(request))
+
+        axios(request).then((response) => {
+          response.data.forEach(app => {
+            if (app.buildpack === null) {
+              app.buildpack = 'No Buildpack';
+            }
+            app.state = app.state.charAt(0).toUpperCase() + app.state.slice(1).toLowerCase(); //format the state of the app
+            let foundation = _.find(foundations, {api: app.api})
+            app.foundationName = foundation.name
+            dispatch({type: types.FETCH_APP_FULFILLED, payload: app})
+          })
+
+        }).catch(error => {
+          console.log(error);
+          dispatch({type: types.FETCH_APPS_REJECTED, payload: error})
+        });
       }
-    });
-
-
-    Promise.all(foundationPromises).then(responses => {
-      let apps = [];
-      responses.forEach(response => {
-        response.data.forEach(app => {
-          if (app.buildpack === null) {
-            app.buildpack = 'No Buildpack';
-          }
-          app.state = app.state.charAt(0).toUpperCase() + app.state.slice(1).toLowerCase(); //format the state of the app
-          apps.push(app)
-
-          let foundation = _.find(foundations, {api: app.api})
-          app.foundationName = foundation.name
-        })
-      });
-      dispatch({type: types.FETCH_APPS_FULFILLED, payload: apps})
-    }).catch(error => {
-      console.log(error);
-      dispatch({type: types.FETCH_APPS_REJECTED, payload: error})
     });
   }
 }
 
 export function fetchAppDetail (id) {
-  return function(dispatch) {
+  return dispatch => {
     console.log("In fetchAppDetail" + id);
     axios.get(`${config.cfRadiatorUrl}/api/apps/${id}`)
       .then((response) => {

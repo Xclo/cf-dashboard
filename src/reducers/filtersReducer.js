@@ -1,14 +1,6 @@
 import _ from 'lodash'
 
-import {
-  SEARCH_FIELD_UPDATED,
-  TOGGLE_FOUNDATION,
-  FETCH_FOUNDATIONS_FULFILLED,
-  TOGGLE_BUILDPACK,
-  TOGGLE_APP_STATE,
-  FETCH_APPS_FULFILLED,
-  SORT_UPDATED
-} from '../actions/types'
+import * as types from '../actions/types'
 
 export default function reducer(state = {
     availableFoundations: [],
@@ -21,7 +13,7 @@ export default function reducer(state = {
     sortBy: 'name-asc'
   }, action) {
     switch (action.type) {
-      case FETCH_FOUNDATIONS_FULFILLED: {
+      case types.FETCH_FOUNDATIONS_FULFILLED: {
         //when foundations are initially loaded, select them all
         let foundations = [];
         action.payload.forEach((foundation) => {
@@ -35,14 +27,14 @@ export default function reducer(state = {
         }
       }
 
-      case FETCH_APPS_FULFILLED: {
-        let buildpacks = _.uniq(_.map(action.payload, app => {
-          return app.buildpack;
-        }));
+      case types.FETCH_APP_FULFILLED: {
+        let buildpacks = [...state.availableBuildpacks]
+        buildpacks.push(action.payload.buildpack);
+        buildpacks = _.uniq(buildpacks);
 
-        let appStates = _.uniq(_.map(action.payload, app => {
-          return app.state;
-        }));
+        let appStates = [...state.availableAppStates]
+        appStates.push(action.payload.state)
+        appStates = _.uniq(appStates);
 
         return {
           ...state,
@@ -53,7 +45,7 @@ export default function reducer(state = {
         }
       }
 
-      case TOGGLE_FOUNDATION: {
+      case types.TOGGLE_FOUNDATION: {
         let foundations = [...state.selectedFoundations]
         if (foundations.indexOf(action.payload) !== -1) {
           foundations.splice(foundations.indexOf(action.payload), 1)
@@ -65,14 +57,14 @@ export default function reducer(state = {
           selectedFoundations: foundations
         }
       }
-      case SEARCH_FIELD_UPDATED: {
+      case types.SEARCH_FIELD_UPDATED: {
         return {
           ...state,
           searchField: action.payload
         }
       }
 
-      case TOGGLE_BUILDPACK: {
+      case types.TOGGLE_BUILDPACK: {
         let buildpacks = [...state.selectedBuildpacks]
         if (buildpacks.indexOf(action.payload) !== -1) {
           buildpacks.splice(buildpacks.indexOf(action.payload), 1)
@@ -85,7 +77,7 @@ export default function reducer(state = {
         }
       }
 
-      case TOGGLE_APP_STATE: {
+      case types.TOGGLE_APP_STATE: {
         let appStates = [...state.selectedAppStates]
         if (appStates.indexOf(action.payload) !== -1) {
           appStates.splice(appStates.indexOf(action.payload), 1)
@@ -98,7 +90,7 @@ export default function reducer(state = {
         }
       }
 
-      case SORT_UPDATED: {
+      case types.SORT_UPDATED: {
         return {
           ...state,
           sortBy: action.payload
