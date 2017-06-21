@@ -1,29 +1,25 @@
-global.__DEVELOPMENT__ = (process.env.NODE_ENV === 'development');
+global.__PRODUCTION__ = (process.env.NODE_ENV === 'production');
 
 let config = {
 	development: {
 		isProduction: false,
 		port: 8080,
-		protocol: 'http'
+		protocol: 'http',
+		cfRadiatorUrl: 'http://localhost:5000',
+		ciRadiatorUrl: 'http://localhost:5001'
   },
 	production: {
 		isProduction: true,
 		port: process.env.PORT,
-		httpsPort: 8080,
-		protocol: 'http'
+		protocol: 'https',
+		cfRadiatorUrl: ''
 	},
-}[__DEVELOPMENT__ ? 'development' : 'production'];
-
-config.host = 'localhost:5000';
+}[__PRODUCTION__ ? 'production': 'development'];
 
 config = {
 	...config,
 	app: { name: 'React Redux Example Development' },
 	cookie: { maxAge: 1800000 },
 };
-
-config.site = __DEVELOPMENT__ ?
-	`${config.protocol}://${config.host}:${config.port}` :
-	`${config.protocol}://${config.host}`;
 
 export default config;

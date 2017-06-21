@@ -1,6 +1,7 @@
 import * as types from './types.jsx';
 import axios from 'axios';
 import Promise from 'bluebird'
+import config from '../config'
 
 export function dispatchClientAction (action) {
   console.log("dispatchClientAction::" + action);
@@ -40,7 +41,7 @@ export function selectApp(app) {
   auth = JSON.parse(auth);
 
   let request = {
-    url: 'https://cf-radiator-server.apps.pcf.cloud/api/apps/'+app.metadata.guid + '',
+    url: `${config.cfRadiatorUrl}/api/apps/${app.metadata.guid}`,
     method: 'get',
     headers: {
       api: app.api,
@@ -70,7 +71,7 @@ export function fetchApps (foundations) {
         auth = JSON.parse(auth);
 
         let request = {
-          url: 'https://cf-radiator-server.apps.pcf.cloud/api/apps',
+          url: `${config.cfRadiatorUrl}/api/apps`,
           method: 'get',
           headers: {
             api: foundation.api,
@@ -107,7 +108,7 @@ export function fetchApps (foundations) {
 export function fetchAppDetail (id) {
   return function(dispatch) {
     console.log("In fetchAppDetail" + id);
-    axios.get('https://cf-radiator-server.apps.pcf.cloud/api/app/'+id)
+    axios.get(`${config.cfRadiatorUrl}/api/apps/${id}`)
       .then((response) => {
         dispatch({type: types.FETCH_APP_DETAILS_FULFILLED, payload: response.data})
       })

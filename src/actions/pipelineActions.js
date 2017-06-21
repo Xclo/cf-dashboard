@@ -3,6 +3,7 @@ import axios from 'axios';
 import {reset} from 'redux-form'
 import ciservers from '../config/ciservers'
 import moment from 'moment'
+import config from '../config'
 
 
 export function fetchCIServers () {
@@ -14,7 +15,7 @@ export function fetchCIServers () {
 
 export function ciserverLogin(auth) {
   return function(dispatch) {
-    axios.post('http://localhost:5001/api/auth/login', {username: auth.username, password: auth.password, api: auth.api, team: auth.team})
+    axios.post(`${config.ciRadiatorUrl}/api/auth/login`, {username: auth.username, password: auth.password, api: auth.api, team: auth.team})
       .then((response) => {
         if (response.data.type && response.data.value) {
           const payload = {
@@ -46,7 +47,7 @@ export function loadPipelines (ciserver) {
         auth = JSON.parse(auth);
 
         let request = {
-          url: 'http://localhost:5001/api/pipelines',
+          url: `${config.ciRadiatorUrl}/api/pipelines`,
           method: 'get',
           headers: {
             api: ciserver.api,

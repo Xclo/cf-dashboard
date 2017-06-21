@@ -3,7 +3,7 @@ import axios from 'axios';
 import {reset} from 'redux-form'
 import foundations from '../config/foundations'
 import moment from 'moment'
-
+import config from '../config'
 
 export function fetchFoundations () {
   return function(dispatch) {
@@ -14,7 +14,7 @@ export function fetchFoundations () {
 
 export function foundationLogin(auth) {
   return function(dispatch) {
-    axios.post('https://cf-radiator-server.apps.pcf.cloud/api/auth/login', {username: auth.username, password: auth.password, api: auth.api})
+    axios.post(`${config.cfRadiatorUrl}/api/auth/login`, {username: auth.username, password: auth.password, api: auth.api})
       .then((response) => {
         if (response.data.token_type && response.data.access_token && response.data.refresh_token) {
           const payload = {
@@ -73,7 +73,7 @@ export function loadFoundationInfo(foundation) {
 
   return dispatch => {
     let request = {
-      url: 'https://cf-radiator-server.apps.pcf.cloud/api/foundationInfo',
+      url: `${config.cfRadiatorUrl}/api/foundationInfo`,
       method: 'get',
       headers: {
         api: foundation.api
